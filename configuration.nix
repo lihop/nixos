@@ -61,6 +61,7 @@
     isNormalUser = true;
     home = "/home/leroy";
     description = "Leroy Hopson";
+    extraGroups = [ "wheel" ];
     uid = 1000;
   };
 
