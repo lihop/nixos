@@ -19,6 +19,10 @@
   boot.initrd.luks.devices = [ { name = "luksroot"; device = "/dev/sda2"; preLVM = true; } ];
   # Define which kernel to use
   boot.kernelPackages = pkgs.linuxPackages_3_18;
+  # Define kernel boot parameters
+  boot.kernelParams = [
+    "tpm_tis.force=1"
+  ];
 
   # Bind/unbind USB controller to prevent resume error
   powerManagement.powerDownCommands = "echo -n 0000:00:1d.0 | tee /sys/bus/pci/drivers/ehci-pci/unbind";
