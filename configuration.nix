@@ -20,6 +20,10 @@
   # Define which kernel to use
   boot.kernelPackages = pkgs.linuxPackages_3_17;
 
+  # Bind/unbind USB controller to prevent resume error
+  powerManagement.powerDownCommands = "echo -n 0000:00:1d.0 | tee /sys/bus/pci/drivers/ehci-pci/unbind";
+  powerManagement.resumeCommands = "echo -n 0000:00:1d.0 | tee /sys/bus/pci/drivers/ehci-pci/bind";
+
   # networking.hostName = "nixos"; # Define your hostname.
   networking.hostId = "428f090c";
   networking.wireless.enable = true;  # Enables wireless.
