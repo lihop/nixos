@@ -33,6 +33,7 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     git
+    vim
     wget
   ];
 
