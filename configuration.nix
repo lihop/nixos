@@ -17,6 +17,8 @@
   boot.loader.grub.device = "/dev/sda";
   # Setup crypt devices
   boot.initrd.luks.devices = [ { name = "luksroot"; device = "/dev/sda2"; preLVM = true; } ];
+  # Define which kernel to use
+  boot.kernelPackages = pkgs.linuxPackages_3_17;
 
   # networking.hostName = "nixos"; # Define your hostname.
   networking.hostId = "428f090c";
