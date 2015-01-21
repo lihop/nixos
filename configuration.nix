@@ -22,11 +22,8 @@
   # Define kernel boot parameters
   boot.kernelParams = [
     "tpm_tis.force=1"
+    "modprobe.blacklist=ehci_hcd,ehci_pci"
   ];
-
-  # Bind/unbind USB controller to prevent resume error
-  powerManagement.powerDownCommands = "echo -n 0000:00:1d.0 | tee /sys/bus/pci/drivers/ehci-pci/unbind";
-  powerManagement.resumeCommands = "echo -n 0000:00:1d.0 | tee /sys/bus/pci/drivers/ehci-pci/bind";
 
   # networking.hostName = "nixos"; # Define your hostname.
   networking.hostId = "428f090c";
