@@ -57,9 +57,11 @@
   # services.xserver.desktopManager.kde4.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.extraUsers.guest = {
-  #   isNormalUser = true;
-  #   uid = 1000;
-  # };
+  users.extraUsers.leroy = {
+    isNormalUser = true;
+    home = "/home/leroy";
+    description = "Leroy Hopson";
+    uid = 1000;
+  };
 
 }
