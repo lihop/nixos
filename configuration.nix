@@ -22,7 +22,7 @@
 
   # networking.hostName = "nixos"; # Define your hostname.
   networking.hostId = "428f090c";
-  # networking.wireless.enable = true;  # Enables wireless.
+  networking.wireless.enable = true;  # Enables wireless.
 
   # Select internationalisation properties.
   i18n = {
