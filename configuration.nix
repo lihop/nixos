@@ -25,11 +25,11 @@
   # networking.wireless.enable = true;  # Enables wireless.
 
   # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "lat9w-16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
+  i18n = {
+    consoleFont = "lat9w-16";
+    consoleKeyMap = "dvorak";
+    defaultLocale = "en_NZ.UTF-8";
+  };
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
