@@ -71,6 +71,7 @@
     displayManager.kdm.enable = true;
     desktopManager.kde4.enable = true;
     videoDrivers = [ "intel" ];
+    synaptics.enable = true;
     startGnuPGAgent = true;
   };
 
