@@ -48,6 +48,8 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+  # Disable OpenSsh agent use GnuPG agent instead
+  programs.ssh.startAgent = false;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -59,6 +61,7 @@
     displayManager.kdm.enable = true;
     desktopManager.kde4.enable = true;
     videoDrivers = [ "intel" ];
+    startGnuPGAgent = true;
   };
 
   # Enable the KDE Desktop Environment.
