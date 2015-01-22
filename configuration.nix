@@ -44,6 +44,16 @@
     wget
   ];
 
+  # Use custom kernel configuration
+  nixpkgs.config.packageOverrides = pkgs:
+    { linux_3_18 = pkgs.linux_3_18.override {
+        extraConfig =
+          "
+            CHROME_PLATFORMS y
+          ";
+      };
+    };
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
