@@ -53,9 +53,13 @@
   # services.printing.enable = true;
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "dvorak";
-  # services.xserver.xkbOptions = "eurosign:e";
+  services.xserver = {
+    enable = true;
+    layout = "dvorak";
+    displayManager.kdm.enable = true;
+    desktopManager.kde4.enable = true;
+    videoDrivers = [ "intel" ];
+  };
 
   # Enable the KDE Desktop Environment.
   # services.xserver.displayManager.kdm.enable = true;
