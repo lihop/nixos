@@ -48,9 +48,9 @@
   nixpkgs.config.packageOverrides = pkgs:
     { linux_3_18 = pkgs.linux_3_18.override {
         extraConfig =
-          "
+          ''
             CHROME_PLATFORMS y
-          ";
+          '';
       };
     };
 
