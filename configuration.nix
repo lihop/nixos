@@ -71,7 +71,10 @@
     displayManager.kdm.enable = true;
     desktopManager.kde4.enable = true;
     videoDrivers = [ "intel" ];
-    synaptics.enable = true;
+    synaptics = {
+      enable = true;
+      twoFingerScroll = true;
+    };
     startGnuPGAgent = true;
   };
 
