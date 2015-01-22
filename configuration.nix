@@ -48,7 +48,7 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-  # Disable OpenSsh agent use GnuPG agent instead
+  # Disable OpenSSH agent use GnuPG agent instead
   programs.ssh.startAgent = false;
 
   # Enable CUPS to print documents.
@@ -63,10 +63,6 @@
     videoDrivers = [ "intel" ];
     startGnuPGAgent = true;
   };
-
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.kdm.enable = true;
-  # services.xserver.desktopManager.kde4.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.leroy = {
