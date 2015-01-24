@@ -32,7 +32,7 @@
     "modprobe.blacklist=ehci_hcd,ehci_pci"
   ];
 
-  # networking.hostName = "nixos";
+  networking.hostName = "hilly";
   networking.hostId = "428f090c";
   networking.wireless.enable = true;
 
