@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -10,41 +6,15 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
+
   # Setup crypt devices
   boot.initrd.luks.devices = [ { name = "luksroot"; device = "/dev/sda2"; preLVM = true; } ];
+
   # Define which kernel to use
   boot.kernelPackages = pkgs.linuxPackages_3_18;
-  # Define kernel boot parameters
-  boot.kernelParams = [
-    "tpm_tis.force=1"
-    "modprobe.blacklist=ehci_hcd,ehci_pci"
-  ];
-
-  # networking.hostName = "nixos"; # Define your hostname.
-  networking.hostId = "428f090c";
-  networking.wireless.enable = true;  # Enables wireless.
-
-  # Select internationalisation properties.
-  i18n = {
-    consoleFont = "lat9w-16";
-    consoleKeyMap = "dvorak";
-    defaultLocale = "en_NZ.UTF-8";
-  };
-
-  time.timeZone = "Pacific/Auckland";
-
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-    git
-    vim
-    wget
-  ];
 
   # Use custom kernel configuration
   nixpkgs.config.packageOverrides = pkgs:
@@ -56,17 +26,34 @@
       };
     };
 
-  # List services that you want to enable:
+  # Define kernel boot parameters
+  boot.kernelParams = [
+    "tpm_tis.force=1"
+    "modprobe.blacklist=ehci_hcd,ehci_pci"
+  ];
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  # networking.hostName = "nixos";
+  networking.hostId = "428f090c";
+  networking.wireless.enable = true;
+
+  # Select internationalisation properties.
+  i18n = {
+    consoleFont = "lat9w-16";
+    consoleKeyMap = "dvorak";
+    defaultLocale = "en_NZ.UTF-8";
+  };
+
+  time.timeZone = "Pacific/Auckland";
+
+  environment.systemPackages = with pkgs; [
+    git
+    vim
+    wget
+  ];
+
   # Disable OpenSSH agent use GnuPG agent instead
   programs.ssh.startAgent = false;
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
     layout = "dvorak";
