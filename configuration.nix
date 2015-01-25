@@ -56,7 +56,8 @@
 
   services.xserver = {
     enable = true;
-    layout = "dvorak";
+    layout = "us";
+    xkbVariant = "dvp";
     displayManager.kdm.enable = true;
     desktopManager.kde4.enable = true;
     videoDrivers = [ "intel" ];
