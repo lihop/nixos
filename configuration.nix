@@ -46,6 +46,7 @@
   time.timeZone = "Pacific/Auckland";
 
   environment.systemPackages = with pkgs; [
+    cacert
     git
     vim
     wget
