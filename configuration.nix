@@ -61,6 +61,8 @@
 
   services.xserver = {
     enable = true;
+    displayManager.auto.enable = true;
+    displayManager.auto.user = "leroy";
     displayManager.sessionCommands =
       ''
 	sh /home/leroy/.xsession
