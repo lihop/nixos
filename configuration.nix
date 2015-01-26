@@ -48,6 +48,10 @@
   environment.systemPackages = with pkgs; [
     cacert
     git
+    haskellPackages.ghc
+    haskellPackages.xmonad
+    haskellPackages.xmonadContrib
+    haskellPackages.xmonadExtras
     vim
     wget
   ];
@@ -57,11 +61,17 @@
 
   services.xserver = {
     enable = true;
+    displayManager.sessionCommands =
+      ''
+	sh /home/leroy/.xsession
+      '';
+    desktopManager.xterm.enable = false;
     layout = "us";
     xkbVariant = "dvp";
-    displayManager.kdm.enable = true;
-    desktopManager.kde4.enable = true;
     videoDrivers = [ "intel" ];
+    windowManager.xmonad.enable = true;
+    windowManager.default = "xmonad";
+    windowManager.xmonad.enableContribAndExtras = true;
     synaptics = {
       enable = true;
       twoFingerScroll = true;
