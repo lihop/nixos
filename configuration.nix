@@ -56,6 +56,15 @@
     wget
   ];
 
+  fonts = {
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
+    fonts = with pkgs; [
+      dejavu_fonts
+      ubuntu_font_family
+    ];
+  };
+
   # Disable OpenSSH agent use GnuPG agent instead
   programs.ssh.startAgent = false;
 
