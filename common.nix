@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    # Enable distributed builds
+    ./buildMachines.nix
+  ];
   # Internationalisation properties.
   i18n = {
     consoleFont = "lat9w-16";
@@ -63,4 +67,24 @@
     extraGroups = [ "wheel" ];
     uid = 1000;
   };
+  users.extraGroups.leroy.gid = 1000;
+
+  users.extraUsers.nix = {
+    isNormalUser = true;
+    home = "/home/nix";
+    description = "User for performing distributed builds over ssh";
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFCV0ZiUualZyUXk6H6I8nvK0AU7555au2xRMwTIkMdktewZ913Mts8/S9nhxwBcDEMf2ozch0MXdobALo1dCeWCCtIB2+wFPwnUMss6ozqjcVKvkSLob62WHA/MR+WsFAq03KfrtV3CjHbAID10PE78/OOEkRoqVLajEqRZ/kABiFHIYWdOH5RCd42wTfG8JcZA39psSQ998WZ5UwvR40tG/NBg//dFuIZemCVcBAMPyxqHKYXCTK6r9Wr/HHfrqa0ieLBWk4+LqRikHyqrTTMyAubEaoSkUr9gMBscXMTj8V9HyoA5UwO5eHhdgRXiVUL/PeYxOgRbFKV/h8GMP5 nix@hilly"
+    ];
+  };
+  users.extraGroups.nix = {};
+
+  # Auto optimisation of the store might be made default soon.
+  # See: https://github.com/NixOS/nix/issues/462
+  nix.extraOptions = ''
+    auto-optimise-store = true
+  '';
+
+  # Use all available CPU cores for builds
+  nix.buildCores = 0;
 }
