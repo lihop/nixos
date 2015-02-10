@@ -23,6 +23,7 @@
     haskellPackages.xmonadExtras
     vim
     wget
+    xclip
   ];
 
   fonts = {
@@ -37,6 +38,8 @@
 
   # Disable OpenSSH agent use GnuPG agent instead
   programs.ssh.startAgent = false;
+
+  services.openssh.enable = true;
 
   services.xserver = {
     enable = true;
@@ -64,6 +67,7 @@
     isNormalUser = true;
     home = "/home/leroy";
     description = "Leroy Hopson";
+    group = "leroy";
     extraGroups = [ "wheel" ];
     uid = 1000;
   };
