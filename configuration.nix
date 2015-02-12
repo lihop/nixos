@@ -10,11 +10,16 @@
     ];
 
   boot.loader.grub.enable = true;
+  boot.loader.grub.enableCryptodisk = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
 
+  boot.initrd.extraUtilsCommands = ''
+    cp -v /boot/crypto_keyfile.bin $out/bin/
+  '';
+
   # Setup crypt devices
-  boot.initrd.luks.devices = [ { name = "luksroot"; device = "/dev/sda2"; preLVM = true; } ];
+  boot.initrd.luks.devices = [ { name = "luksroot"; device = "/dev/sda2"; preLVM = true; keyFile = "$PATH/crypto_keyfile.bin"; } ];
 
   # Define which kernel to use
   boot.kernelPackages = pkgs.linuxPackages_3_18;

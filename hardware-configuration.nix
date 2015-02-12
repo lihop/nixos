@@ -11,14 +11,10 @@
   boot.initrd.availableKernelModules = [ "xhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [ "cryptodisk=/dev/sda2" ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/68acf84c-bc65-4331-b252-506a97decdb1";
-      fsType = "ext4";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/3de4e8db-9d57-47a1-9100-33ea4801a3d2";
       fsType = "ext4";
     };
 
