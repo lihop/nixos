@@ -24,6 +24,7 @@
     vim
     wget
     xclip
+    xlibs.xmodmap
   ];
 
   fonts = {
@@ -45,10 +46,6 @@
     enable = true;
     displayManager.auto.enable = true;
     displayManager.auto.user = "leroy";
-    displayManager.sessionCommands =
-      ''
-        sh /home/leroy/.xsession
-      '';
     desktopManager.xterm.enable = false;
     layout = "us";
     xkbVariant = "dvp";

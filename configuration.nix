@@ -44,7 +44,14 @@
   networking.hostId = "428f090c";
   networking.wireless.enable = true;
 
+  environment.systemPackages = with pkgs;
+    [ sxhkd
+    ];
+
   services.xserver = {
+    displayManager.sessionCommands = ''
+      sxhkd &
+    '';
     videoDrivers = [ "intel" ];
     windowManager.xmonad.enable = true;
     synaptics = {
