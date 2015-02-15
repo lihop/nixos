@@ -1,14 +1,15 @@
 { config, pkgs, ... }:
 
 {
-  # Uncomment the configuration file for this specefic device.
+  # Copy this template to a file called configuration.nix 
+  # and uncomment configs for this device and its roles.
   imports =
     [ # Device: 
         #./devices/chromebook.nix
         #./devices/desktop.nix
         #./devices/homeserver.nix
       # Roles:
-        #./roles/common.nix
+        ./roles/common.nix
         #./roles/server.nix
         #./virtualisation.nix
         #./roles/workstation.nix

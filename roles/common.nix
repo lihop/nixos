@@ -7,7 +7,9 @@
     consoleKeyMap = "dvorak";
     defaultLocale = "en_NZ.UTF-8";
   };
-  
+
+  environment.systemPackages = with pkgs; [ git vim wget ];
+
   programs.ssh.startAgent = false;
   programs.bash.enableCompletion = true;
 

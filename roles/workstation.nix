@@ -4,15 +4,12 @@
   environment.systemPackages = with pkgs; [
     cacert
     (import ../pkgs/dynamic-colors.nix)
-    git
     haskellPackages.ghc
     haskellPackages.xmonad
     haskellPackages.xmonadContrib
     haskellPackages.xmonadExtras
     (pass.override { withX = true; })
-    rxvt_unicode 
-    vim
-    wget
+    rxvt_unicode
   ];
 
   services.xserver = {
