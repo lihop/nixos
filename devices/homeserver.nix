@@ -33,6 +33,11 @@
 
   networking.hostName = "peaches";
   networking.hostId = "18e2feed";
+  networking.bridges.br0.interfaces =
+    [ "enp1s0"
+      "enp3s0"
+      "enp4s0"
+    ];
 
   boot.kernelPackages = pkgs.linuxPackages_3_18;
 
