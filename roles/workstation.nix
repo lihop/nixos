@@ -3,11 +3,13 @@
 {
   environment.systemPackages = with pkgs; [
     cacert
+    evince
     (import ../pkgs/dynamic-colors.nix)
     haskellPackages.ghc
     haskellPackages.xmonad
     haskellPackages.xmonadContrib
     haskellPackages.xmonadExtras
+    libreoffice
     (pass.override { withX = true; })
     rxvt_unicode
   ];
