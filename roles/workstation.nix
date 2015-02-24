@@ -3,12 +3,16 @@
 {
   environment.systemPackages = with pkgs; [
     cacert
+    evince
     (import ../pkgs/dynamic-colors.nix)
     haskellPackages.ghc
     haskellPackages.xmonad
     haskellPackages.xmonadContrib
     haskellPackages.xmonadExtras
+    libreoffice
+    (mutt.override { gpgmeSupport = true; })
     (pass.override { withX = true; })
+    taskwarrior
     rxvt_unicode
   ];
 
