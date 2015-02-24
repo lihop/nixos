@@ -12,7 +12,9 @@
     haskellPackages.xmonadContrib
     haskellPackages.xmonadExtras
     libreoffice
+    (mutt.override { gpgmeSupport = true; })
     (pass.override { withX = true; })
+    taskwarrior
     rxvt_unicode
     stow
   ];

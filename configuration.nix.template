@@ -11,6 +11,7 @@
       # Roles:
         ./roles/common.nix
         #./roles/server.nix
+        #./roles/steammachine.nix
         #./roles/virtualisation.nix
         #./roles/workstation.nix
     ];
