@@ -3,7 +3,9 @@
 {
   environment.systemPackages = with pkgs; [
     cacert
+    dmenu
     evince
+    firefox
     (import ../pkgs/dynamic-colors.nix)
     haskellPackages.ghc
     haskellPackages.xmonad
@@ -12,6 +14,7 @@
     libreoffice
     (pass.override { withX = true; })
     rxvt_unicode
+    stow
   ];
 
   services.xserver = {
