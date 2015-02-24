@@ -10,7 +10,10 @@
     haskellPackages.xmonadContrib
     haskellPackages.xmonadExtras
     libreoffice
+<<<<<<< HEAD
     (mutt.override { gpgmeSupport = true; })
+=======
+>>>>>>> fa68cc6011d471b334b381456b7dd2369398185a
     (pass.override { withX = true; })
     taskwarrior
     rxvt_unicode
