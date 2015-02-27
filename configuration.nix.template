@@ -10,6 +10,7 @@
         #./devices/homeserver.nix
       # Roles:
         ./roles/common.nix
+        #./roles/graphics.nix
         #./roles/server.nix
         #./roles/steammachine.nix
         #./roles/virtualisation.nix
