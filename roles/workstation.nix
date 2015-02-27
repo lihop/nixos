@@ -2,10 +2,13 @@
 
 {
   environment.systemPackages = with pkgs; [
+    acpi
     cacert
     dmenu
+    eclipses.eclipse_sdk_44
     evince
     firefox
+    gnupg
     (import ../pkgs/dynamic-colors.nix)
     haskellPackages.ghc
     haskellPackages.xmonad
@@ -17,6 +20,7 @@
     taskwarrior
     rxvt_unicode
     stow
+    vlc
   ];
 
   services.xserver = {
