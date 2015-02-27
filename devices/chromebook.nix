@@ -62,6 +62,7 @@
 
   environment.systemPackages = with pkgs;
     [ sxhkd
+      xlibs.xbacklight
     ];
 
   services.xserver = {
