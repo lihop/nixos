@@ -1,15 +1,34 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.config = {
+    allowUnfree = true;
+
+    firefox = {
+      enableAdobeFlash = true;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
+    acpi
     cacert
+    dmenu
+    eclipses.eclipse_sdk_421
+    evince
+    firefoxWrapper
+    gnupg
     (import ../pkgs/dynamic-colors.nix)
     haskellPackages.ghc
     haskellPackages.xmonad
     haskellPackages.xmonadContrib
     haskellPackages.xmonadExtras
+    libreoffice
+    (mutt.override { gpgmeSupport = true; })
     (pass.override { withX = true; })
+    taskwarrior
     rxvt_unicode
+    stow
+    vlc
   ];
 
   services.xserver = {

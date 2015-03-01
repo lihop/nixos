@@ -8,7 +8,7 @@
     defaultLocale = "en_NZ.UTF-8";
   };
 
-  environment.systemPackages = with pkgs; [ git tmux vim wget ];
+  environment.systemPackages = with pkgs; [ git tmux vim wget unzip ];
 
   programs.ssh.startAgent = false;
   programs.bash.enableCompletion = true;

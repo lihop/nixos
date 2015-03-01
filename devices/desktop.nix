@@ -33,6 +33,7 @@
   nix.maxJobs = 8;
 
   boot.loader.grub.enable = true;
+  boot.loader.grub.enableCryptodisk = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.devices = [
     "/dev/sda"
