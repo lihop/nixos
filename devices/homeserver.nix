@@ -38,6 +38,7 @@
       "enp3s0"
       "enp4s0"
     ];
+  networking.firewall.enable = false;
 
   boot.kernelPackages = pkgs.linuxPackages_3_18;
 
