@@ -1,13 +1,21 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.config = {
+    allowUnfree = true;
+
+    firefox = {
+      enableAdobeFlash = true;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     acpi
     cacert
     dmenu
     eclipses.eclipse_sdk_44
     evince
-    firefox
+    firefoxWrapper
     gnupg
     (import ../pkgs/dynamic-colors.nix)
     haskellPackages.ghc
