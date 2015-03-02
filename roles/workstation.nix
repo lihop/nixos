@@ -13,7 +13,6 @@
     acpi
     cacert
     dmenu
-    eclipses.eclipse_sdk_421
     evince
     firefoxWrapper
     gnupg
