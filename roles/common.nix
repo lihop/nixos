@@ -8,7 +8,18 @@
     defaultLocale = "en_NZ.UTF-8";
   };
 
-  environment.systemPackages = with pkgs; [ git tmux vim wget unzip ];
+  environment.systemPackages = with pkgs; [
+    git
+    htop
+    inetutils
+    nmap
+    telnet
+    tmux
+    vim
+    wakelan
+    wget
+    unzip
+  ];
 
   programs.ssh.startAgent = false;
   programs.bash.enableCompletion = true;
