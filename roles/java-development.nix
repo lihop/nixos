@@ -3,6 +3,6 @@
 {
   environment.systemPackages = with pkgs;
     [ idea.idea-community
-      openjdk8
+      oraclejdk8
     ];
 }
