@@ -15,7 +15,7 @@
     nmap
     telnet
     tmux
-    vim
+    vim_configurable
     wakelan
     wget
     unzip

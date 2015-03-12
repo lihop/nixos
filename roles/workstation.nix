@@ -13,7 +13,7 @@
     acpi
     cacert
     dmenu
-    evince
+    mupdf
     firefoxWrapper
     gnupg
     (import ../pkgs/dynamic-colors.nix)
@@ -24,6 +24,7 @@
     libreoffice
     (mutt.override { gpgmeSupport = true; })
     (pass.override { withX = true; })
+    (pkgs.texLiveAggregationFun { paths = [ pkgs.texLive pkgs.texLiveExtra pkgs.texLiveBeamer ]; })
     taskwarrior
     rxvt_unicode
     stow
