@@ -39,7 +39,6 @@
     "/dev/sda"
     "/dev/sdb"
     "/dev/sdc"
-    "/dev/sdd"
     "/dev/sde"
     "/dev/sdf"
   ];
@@ -60,13 +59,13 @@
   
   # Setup crypt devices
   boot.initrd.luks.devices = [
-    { name = "sda1"; device = "/dev/sda1"; keyFile = "$PATH/crypto_keyfile.bin"; }
-    { name = "sdb1"; device = "/dev/sdb1"; keyFile = "$PATH/crypto_keyfile.bin"; }
-    { name = "sdc1"; device = "/dev/sdc1"; keyFile = "$PATH/crypto_keyfile.bin"; }
-    { name = "sdd1"; device = "/dev/sdd1"; keyFile = "$PATH/crypto_keyfile.bin"; }
-    { name = "sde1"; device = "/dev/sde1"; keyFile = "$PATH/crypto_keyfile.bin"; }
-    { name = "sde2"; device = "/dev/sde2"; keyFile = "$PATH/crypto_keyfile.bin"; }
-    { name = "sdf1"; device = "/dev/sdf1"; keyFile = "$PATH/crypto_keyfile.bin"; }
+    { name = "sda1"; device = "/dev/disk/by-uuid/b2b8f7d3-817e-451c-b20c-7bb4c0d7d92f"; keyFile = "$PATH/crypto_keyfile.bin"; }
+    { name = "sdb1"; device = "/dev/disk/by-uuid/2256cb31-f2d5-4c88-98f3-820a3135ae27"; keyFile = "$PATH/crypto_keyfile.bin"; }
+    { name = "sdc1"; device = "/dev/disk/by-uuid/f72caf15-669c-42e9-b733-9987e885208d"; keyFile = "$PATH/crypto_keyfile.bin"; }
+    { name = "sdd1"; device = "/dev/disk/by-uuid/9dd0cc35-1a81-45dd-9ffd-1d50835c92cc"; keyFile = "$PATH/crypto_keyfile.bin"; }
+    { name = "sde1"; device = "/dev/disk/by-uuid/3be7e97e-7e84-4adf-84d5-170419e54d89"; keyFile = "$PATH/crypto_keyfile.bin"; }
+    { name = "sde2"; device = "/dev/disk/by-uuid/6b55dcf5-cf12-4e9d-9fab-a11429beb3ec"; keyFile = "$PATH/crypto_keyfile.bin"; }
+    { name = "sdf1"; device = "/dev/disk/by-uuid/6f43fe93-9be6-44ea-a8d4-3c6592707d0c"; keyFile = "$PATH/crypto_keyfile.bin"; }
   ];
 
   boot.initrd.extraUtilsCommands = ''
