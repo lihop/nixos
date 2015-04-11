@@ -23,7 +23,7 @@
     haskellPackages.xmonadExtras
     libreoffice
     (mutt.override { gpgmeSupport = true; })
-    (pass.override { withX = true; })
+    (pass.override { x11Support = true; })
     (pkgs.texLiveAggregationFun { paths = [ pkgs.texLive pkgs.texLiveExtra pkgs.texLiveBeamer ]; })
     taskwarrior
     rxvt_unicode
