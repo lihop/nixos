@@ -6,8 +6,15 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "usbhid" "bcache" ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel" "pci_stub" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [
+    "pci_stub.ids=1002:679a,1002:aaa0"
+    "intel_iommu=on"
+    "vfio_iommu_type1.allow_unsafe_interrupts=1"
+    "pcie_acs_override=downstream"
+    "i915.enable_hd_vgaarb=1"
+  ];
 
   fileSystems."/" =
     { device = "/dev/bcache0";
@@ -47,12 +54,16 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-    packageOverrides = pkgs:
-    { linux_3_18 = pkgs.linux_3_18.override {
-      extraConfig =
-        ''
-          FHANDLE y
-        '';
+    packageOverrides = pkgs: {
+      linux_3_18 = pkgs.linux_3_18.override {
+        kernelPatches = [
+          { patch = ../patches/i915_317.patch; name = "i915-fix"; }
+          { patch = ../patches/override_for_missing_acs_capabilities.patch; name = "acs-overrides"; }
+        ];
+        extraConfig =
+          ''
+            FHANDLE y
+          '';
       };
     };
   };
@@ -73,6 +84,7 @@
   '';
 
   boot.initrd.preLVMCommands = ''
+    # Register the bcache devices
     modprobe bcache
     for dev in /dev/mapper/*; do echo $dev > /sys/fs/bcache/register_quiet; done
   '';
@@ -80,8 +92,4 @@
   networking.hostName = "zeno";
   networking.hostId = "4f5b35ed";
   networking.wireless.enable = false;
-
-  services.xserver = {
-    videoDrivers = [ "ati_unfree" ];
-  };
 }
