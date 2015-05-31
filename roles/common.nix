@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
+
   time.timeZone = "Pacific/Auckland";
   i18n = {
     consoleFont = "lat9w-16";

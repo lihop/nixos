@@ -2,8 +2,6 @@
 
 {
   nixpkgs.config = {
-    allowUnfree = true;
-
     firefox = {
       enableAdobeFlash = true;
     };

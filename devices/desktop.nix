@@ -53,7 +53,6 @@
   boot.kernelPackages = pkgs.linuxPackages_3_18;
 
   nixpkgs.config = {
-    allowUnfree = true;
     packageOverrides = pkgs: {
       linux_3_18 = pkgs.linux_3_18.override {
         kernelPatches = [
