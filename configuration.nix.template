@@ -13,7 +13,7 @@
         #./roles/buildClient.nix
         ./roles/common.nix
         #./roles/graphics.nix
-        #./roles/javaDevelopment
+        #./roles/javaDevelopment.nix
         #./roles/server.nix
         #./roles/steammachine.nix
         #./roles/virtualisation.nix
