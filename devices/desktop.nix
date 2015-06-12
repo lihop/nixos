@@ -88,7 +88,5 @@
     for dev in /dev/mapper/*; do echo $dev > /sys/fs/bcache/register_quiet; done
   '';
 
-  networking.hostName = "zeno";
-  networking.hostId = "4f5b35ed";
   networking.wireless.enable = false;
 }

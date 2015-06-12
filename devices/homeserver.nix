@@ -31,8 +31,6 @@
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sdc";
 
-  networking.hostName = "peaches";
-  networking.hostId = "18e2feed";
   networking.bridges.br0.interfaces =
     [ "enp1s0"
       "enp3s0"

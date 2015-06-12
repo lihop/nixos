@@ -51,8 +51,6 @@
       };
     };
 
-  networking.hostName = "hilly";
-  networking.hostId = "428f090c";
   networking.wireless.enable = true;
 
   environment.systemPackages = with pkgs;

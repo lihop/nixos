@@ -2,7 +2,11 @@
 
 {
   # Copy this template to a file called configuration.nix 
-  # and uncomment configs for this device and its roles.
+  # and set the devices hostname and hostid
+  networking.hostName = "example";
+  networking.hostId = "12345";
+ 
+  # Uncomment configs for this device and its roles
   imports =
     [ # Device: 
         #./devices/chromebook.nix

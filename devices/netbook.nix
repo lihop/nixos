@@ -28,7 +28,6 @@
 
   nix.maxJobs = 2;
 
-  networking.hostName = "raiden";
   networking.wireless.enable = true;
 
   environment.systemPackages = with pkgs;
