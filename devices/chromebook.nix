@@ -20,14 +20,13 @@
     ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/694febfa-bcfa-4efc-9b48-cec21cd11698"; 
-      fsType = "btrfs";
-      options = "subvol=root";
+    { device = "/dev/disk/by-uuid/ee17e22d-fa70-4791-a206-bb4ca2c75f50";
+      fsType = "ext4";
     };
 
-#  swapDevices =
-#    [ { device = "/dev/disk/by-uuid/96c21e50-5634-43a0-bdf7-a17fe186f383"; }
-#    ];
+  swapDevices =
+    [ { device = "/swapfile"; }
+    ];
 
   nix.maxJobs = 2;
 
@@ -36,12 +35,8 @@
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
 
-  boot.initrd.extraUtilsCommands = ''
-    cp -v /boot/crypto_keyfile.bin $out/bin/
-  '';
-
   # Setup crypt devices
-  boot.initrd.luks.devices = [ { name = "luksroot"; device = "/dev/sda1"; preLVM = true; keyFile = "$PATH/crypto_keyfile.bin"; } ];
+  boot.initrd.luks.devices = [ { name = "luksroot"; device = "/dev/sda1"; } ];
 
   # Define which kernel to use
   boot.kernelPackages = pkgs.linuxPackages_3_18;
