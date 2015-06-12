@@ -39,11 +39,11 @@
   boot.initrd.luks.devices = [ { name = "luksroot"; device = "/dev/sda1"; } ];
 
   # Define which kernel to use
-  boot.kernelPackages = pkgs.linuxPackages_3_18;
+  boot.kernelPackages = pkgs.linuxPackages_testing;
 
   # Use custom kernel configuration
   nixpkgs.config.packageOverrides = pkgs:
-    { linux_3_18 = pkgs.linux_3_18.override {
+    { linux_testing = pkgs.linux_testing.override {
         extraConfig =
           ''
             CHROME_PLATFORMS y
