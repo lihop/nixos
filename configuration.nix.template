@@ -8,6 +8,7 @@
         #./devices/chromebook.nix
         #./devices/desktop.nix
         #./devices/homeserver.nix
+        #./devices/netbook.nix
       # Roles:
         #./roles/buildClient.nix
         ./roles/common.nix
