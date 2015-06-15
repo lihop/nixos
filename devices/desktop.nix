@@ -9,7 +9,7 @@
   boot.kernelModules = [ "kvm-intel" "pci_stub" ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [
-    "pci_stub.ids=1002:679a,1002:aaa0"
+    "pci_stub.ids=1002:679a,1002:aaa0,1b6f:7023,8086:1e31"
     "intel_iommu=on"
     "vfio_iommu_type1.allow_unsafe_interrupts=1"
     "pcie_acs_override=downstream"
