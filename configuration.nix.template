@@ -14,13 +14,14 @@
         #./devices/homeserver.nix
         #./devices/netbook.nix
       # Roles:
-        #./roles/buildClient.nix
+        #./roles/build-client.nix
         ./roles/common.nix
         #./roles/graphics.nix
-        #./roles/javaDevelopment.nix
+        #./roles/java-development.nix
         #./roles/server.nix
-        #./roles/steammachine.nix
+        #./roles/steam-machine.nix
         #./roles/virtualisation.nix
         #./roles/workstation.nix
+        #./roles/workstation-extra.nix
     ];
 }

@@ -19,11 +19,9 @@
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
     haskellPackages.xmonad-extras
-    libreoffice
     (mutt.override { gpgmeSupport = true; })
     (pass.override { x11Support = true; })
     (pkgs.texLiveAggregationFun { paths = [ pkgs.texLive pkgs.texLiveExtra pkgs.texLiveBeamer ]; })
-    taskwarrior
     rxvt_unicode
     stow
     vlc
