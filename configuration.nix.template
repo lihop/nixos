@@ -20,7 +20,6 @@
         #./roles/java-development.nix
         #./roles/server.nix
         #./roles/steam-machine.nix
-        #./roles/virtualisation.nix
         #./roles/workstation.nix
         #./roles/workstation-extra.nix
     ];
