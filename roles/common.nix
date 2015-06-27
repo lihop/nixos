@@ -31,6 +31,10 @@
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
 
+  services.printing = {
+    enable = true;
+  };
+
   users.extraGroups.leroy.gid = 1000;
   users.extraUsers.leroy = {
     isNormalUser = true;
