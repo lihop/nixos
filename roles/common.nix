@@ -13,6 +13,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    (import ../pkgs/dotfiles.nix)
     git
     htop
     inetutils
