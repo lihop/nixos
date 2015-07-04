@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  environment.sessionVariables = {
+    NIX_PATH = [
+      "nixpkgs=/home/leroy/git/nixpkgs"
+    ];
+  };
+
   nixpkgs.config = {
     allowUnfree = true;
   };
