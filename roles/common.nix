@@ -14,7 +14,7 @@
   time.timeZone = "Pacific/Auckland";
   i18n = {
     consoleFont = "lat9w-16";
-    consoleKeyMap = "dvorak";
+    consoleKeyMap = "dvp";
     defaultLocale = "en_NZ.UTF-8";
   };
 
