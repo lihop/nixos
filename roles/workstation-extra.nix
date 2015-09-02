@@ -2,10 +2,15 @@
 
 {
   environment.systemPackages = with pkgs; [
+    gcc
     libreoffice
+    nixopsUnstable
     nodejs
+    npm2nix
     taskwarrior
     transmission
+    weechat
+    xscreensaver
   ];
 
   virtualisation.docker.enable = true;
