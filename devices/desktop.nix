@@ -8,13 +8,6 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "usbhid" "bcache" ];
   boot.kernelModules = [ "kvm-intel" "pci_stub" ];
   boot.extraModulePackages = [ ];
-  boot.kernelParams = [
-    "pci_stub.ids=1002:679a,1002:aaa0,1b6f:7023,8086:1e31"
-    "intel_iommu=on"
-    "vfio_iommu_type1.allow_unsafe_interrupts=1"
-    "pcie_acs_override=downstream"
-    "i915.enable_hd_vgaarb=1"
-  ];
 
   fileSystems."/" =
     { device = "/dev/bcache0";
@@ -50,15 +43,11 @@
     "/dev/sdf"
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_3_18;
+  boot.kernelPackages = pkgs.linuxPackages_4_1;
 
   nixpkgs.config = {
     packageOverrides = pkgs: {
-      linux_3_18 = pkgs.linux_3_18.override {
-        kernelPatches = [
-          { patch = ../patches/i915_317.patch; name = "i915-fix"; }
-          { patch = ../patches/override_for_missing_acs_capabilities.patch; name = "acs-overrides"; }
-        ];
+      linux_4_1 = pkgs.linux_4_1.override {
         extraConfig =
           ''
             FHANDLE y
@@ -88,5 +77,7 @@
     for dev in /dev/mapper/*; do echo $dev > /sys/fs/bcache/register_quiet; done
   '';
 
-  networking.wireless.enable = false;
+  services.xserver = {
+    videoDrivers = [ "ati_unfree" ];
+  };
 }
