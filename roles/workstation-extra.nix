@@ -7,6 +7,7 @@
     nixopsUnstable
     nodejs
     npm2nix
+    (pkgs.texLiveAggregationFun { paths = [ pkgs.texLive pkgs.texLiveExtra pkgs.texLiveBeamer ]; })
     taskwarrior
     transmission
     weechat

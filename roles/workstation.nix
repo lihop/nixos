@@ -21,7 +21,6 @@
     haskellPackages.xmonad-extras
     (mutt.override { gpgmeSupport = true; })
     (pass.override { x11Support = true; })
-    (pkgs.texLiveAggregationFun { paths = [ pkgs.texLive pkgs.texLiveExtra pkgs.texLiveBeamer ]; })
     rxvt_unicode
     stow
     vlc
