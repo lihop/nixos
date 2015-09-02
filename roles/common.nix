@@ -1,10 +1,11 @@
 { config, pkgs, ... }:
 
 {
+  environment.variables = {
+    EDITOR = "vim";
+  };
+
   environment.sessionVariables = {
-    NIX_PATH = [
-      "nixpkgs=/home/leroy/git/nixpkgs"
-    ];
   };
 
   nixpkgs.config = {
