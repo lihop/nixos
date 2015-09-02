@@ -14,7 +14,7 @@
   ];
 
   virtualisation.docker.enable = true;
-  services.virtualboxHost.enable = true;
+  virtualisation.virtualbox.host.enable = true;
   virtualisation.libvirtd.enable = true;
 
   # In order to pass USB devices from the host to the guests,
