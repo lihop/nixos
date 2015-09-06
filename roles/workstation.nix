@@ -14,7 +14,6 @@
     mupdf
     firefoxWrapper
     gnupg
-    (import ../pkgs/dynamic-colors.nix)
     haskellPackages.ghc
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
