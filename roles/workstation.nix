@@ -14,10 +14,6 @@
     mupdf
     firefoxWrapper
     gnupg
-    haskellPackages.ghc
-    haskellPackages.xmonad
-    haskellPackages.xmonad-contrib
-    haskellPackages.xmonad-extras
     (mutt.override { gpgmeSupport = true; })
     (pass.override { x11Support = true; })
     rxvt_unicode
