@@ -3,6 +3,8 @@
 {
   environment.systemPackages = with pkgs; [
     gcc
+    gimp
+    inkscape
     libreoffice
     nixopsUnstable
     nodejs
