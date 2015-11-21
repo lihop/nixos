@@ -13,13 +13,13 @@
         #./devices/desktop.nix
         #./devices/homeserver.nix
         #./devices/netbook.nix
+        #./devices/vultr-768.nix
       # Roles:
         #./roles/build-client.nix
-        ./roles/common.nix
-        #./roles/graphics.nix
+        #./roles/common.nix
         #./roles/java-development.nix
-        #./roles/server.nix
         #./roles/steam-machine.nix
+        #./roles/vultr-vps.nix
         #./roles/workstation.nix
         #./roles/workstation-extra.nix
     ];
