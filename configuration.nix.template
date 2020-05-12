@@ -13,6 +13,7 @@
         #./devices/desktop.nix
         #./devices/homeserver.nix
         #./devices/netbook.nix
+        #./devices/thinkpad-t440p.nix
         #./devices/vultr-768.nix
       # Roles:
         #./roles/build-client.nix
