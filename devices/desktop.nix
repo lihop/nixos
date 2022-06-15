@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "usbhid" "bcache" ];
@@ -10,25 +11,27 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/bcache0";
+    {
+      device = "/dev/bcache0";
       fsType = "btrfs";
       options = "subvol=root";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/d2086f17-b0a4-480e-b8d9-21dd320abcbf";
+    {
+      device = "/dev/disk/by-uuid/d2086f17-b0a4-480e-b8d9-21dd320abcbf";
       fsType = "ext4";
     };
 
   fileSystems."/var/lib/docker/btrfs" =
-    { device = "/root/var/lib/docker/btrfs";
+    {
+      device = "/root/var/lib/docker/btrfs";
       fsType = "none";
       options = "bind";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/586fa43b-fa17-4738-9f06-7aac331e8321"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/586fa43b-fa17-4738-9f06-7aac331e8321"; }];
 
   nix.maxJobs = 8;
 
@@ -55,7 +58,7 @@
       };
     };
   };
-  
+
   # Setup crypt devices
   boot.initrd.luks.devices = [
     { name = "sda1"; device = "/dev/disk/by-uuid/b2b8f7d3-817e-451c-b20c-7bb4c0d7d92f"; keyFile = "$PATH/crypto_keyfile.bin"; }

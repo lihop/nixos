@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
   boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ahci" "usb_storage" ];
@@ -15,23 +16,24 @@
   boot.loader.grub.device = "/dev/sda";
 
   # Setup crypt devices
-  boot.initrd.luks.devices = [ { name = "sda1_crypt"; device = "/dev/sda1"; preLVM = true; } ];
+  boot.initrd.luks.devices = [{ name = "sda1_crypt"; device = "/dev/sda1"; preLVM = true; }];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/6dd3aeae-d49d-43c0-b1fb-5ff4e26b81c6";
+    {
+      device = "/dev/disk/by-uuid/6dd3aeae-d49d-43c0-b1fb-5ff4e26b81c6";
       fsType = "ext4";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/f325e177-a9de-49f4-b999-0646c398e95c"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/f325e177-a9de-49f4-b999-0646c398e95c"; }];
 
   nix.maxJobs = 2;
 
   networking.wireless.enable = true;
 
   environment.systemPackages = with pkgs;
-    [ sxhkd
+    [
+      sxhkd
       xlibs.xbacklight
     ];
 

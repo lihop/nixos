@@ -57,7 +57,7 @@
         pgfopts
         upquote
         xstring
-      ;
+        ;
     })
   ];
 
@@ -65,7 +65,8 @@
   virtualisation.docker.enableNvidia = true;
   virtualisation.docker.storageDriver = "devicemapper";
   virtualisation.docker.listenOptions = [
-    "/run/docker.sock" "127.0.0.1:4153"
+    "/run/docker.sock"
+    "127.0.0.1:4153"
   ];
   virtualisation.virtualbox = {
     host.enable = true;

@@ -93,9 +93,9 @@
       plugins = with pkgs.vimPlugins; [
       ];
       extraConfig = ''
-	set exrc
-        set makeprg=scons\ -j12\ platform=x11
-	set secure
+        set exrc
+              set makeprg=scons\ -j12\ platform=x11
+        set secure
       '';
     };
 
@@ -132,7 +132,9 @@
 
       historyFileSize = 1000000;
       historyIgnore = [
-        "ls" "cd" "exit"
+        "ls"
+        "cd"
+        "exit"
       ];
 
       shellAliases = {

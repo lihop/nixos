@@ -2,7 +2,8 @@
 
 {
   environment.systemPackages = with pkgs;
-    [ idea.idea-community
+    [
+      idea.idea-community
       maven
       oraclejdk8
     ];

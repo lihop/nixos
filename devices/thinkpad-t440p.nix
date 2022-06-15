@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" "rtsx_pci_sdmmc" ];
@@ -13,14 +14,16 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/84a7b09e-a686-44db-9c57-ecfb13911a49";
+    {
+      device = "/dev/disk/by-uuid/84a7b09e-a686-44db-9c57-ecfb13911a49";
       fsType = "ext4";
     };
 
   boot.initrd.luks.devices."sda2_crypt".device = "/dev/disk/by-uuid/2fa09963-38fc-4ec8-aa21-36120bc1d33b";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/854A-1CD9";
+    {
+      device = "/dev/disk/by-uuid/854A-1CD9";
       fsType = "vfat";
     };
 

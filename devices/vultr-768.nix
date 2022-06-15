@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
+    [
+      <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
     ];
 
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_blk" ];
@@ -14,7 +15,8 @@
   boot.loader.grub.version = 2;
 
   fileSystems."/" =
-    { device = "/dev/vda1";
+    {
+      device = "/dev/vda1";
       fsType = "btrfs";
     };
 
