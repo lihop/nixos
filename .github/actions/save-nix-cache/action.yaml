@@ -1,0 +1,11 @@
+name: Save Nix store to GitHub Actions cache
+runs:
+  using: "composite"
+  steps:
+  - shell: bash
+    run: |
+      # Move Nix store files to somewhere they can be cached.
+      sudo systemctl stop nix-daemon
+      sudo rm -rf /tmp/nix-store /tmp/nix-store-db.sqlite
+      sudo mv /nix/store /tmp/nix-store
+      sudo mv /nix/var/nix/db/db.sqlite /tmp/nix-store-db.sqlite

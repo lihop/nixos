@@ -1,0 +1,34 @@
+name: Restore Nix store from GitHub Actions cache
+runs:
+  using: "composite"
+  steps:
+  - uses: actions/cache@v3
+    with:
+      path: |
+        /tmp/nix-store
+        /tmp/nix-store-db.sqlite
+      key: nix-store-${{ github.job }}-${{ hashFiles('**/*.nix') }}
+      restore-keys: |
+        nix-store-${{ github.job }}-${{ hashFiles('**/*.nix') }}-
+        nix-store-${{ github.job }}-
+        nix-store-
+  - shell: bash
+    run: |
+      # Initially copied from:
+      # https://github.com/tpwrules/nixos-m1/blob/main/.github/workflows/installer.yml
+      if [ -e /tmp/nix-store-db.sqlite ]; then
+        sudo systemctl stop nix-daemon
+
+        # Put cached store paths back in their proper locations.
+        sudo rm -rf /nix/store /nix/var/nix/db/db.sqlite
+        sudo mv /tmp/nix-store /nix/store
+        sudo mv /tmp/nix-store-db.sqlite /nix/var/nix/db/db.sqlite
+
+        # Fix store permissions.
+        sudo chmod 1775 /nix/store
+        sudo chown root:nixbld /nix/store
+        sudo chmod 0644 /nix/var/nix/db/db.sqlite
+        sudo chown -R root:root /nix/store /nix/var/nix/db/db.sqlite
+
+        sudo systemctl start nix-daemon
+      fi
