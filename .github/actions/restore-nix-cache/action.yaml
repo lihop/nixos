@@ -9,7 +9,6 @@ runs:
         /tmp/nix-store-db.sqlite
       key: nix-store-${{ github.job }}-${{ hashFiles('**/*.nix') }}
       restore-keys: |
-        nix-store-${{ github.job }}-${{ hashFiles('**/*.nix') }}-
         nix-store-${{ github.job }}-
         nix-store-
   - shell: bash
