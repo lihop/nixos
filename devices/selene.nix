@@ -27,7 +27,7 @@
     description = "VNC Viewer";
     after = [ "display-manager.service" ];
     serviceConfig = {
-      ExecStart = "${pkgs.tigervnc}/bin/vncviewer -ViewOnly -AlertOnFatalError=0 -ReconnectOnError=0 172.26.15.2";
+      ExecStart = "${pkgs.tigervnc}/bin/vncviewer -AlertOnFatalError=0 -ReconnectOnError=0 172.26.15.2";
       Restart = "always";
       RestartSec = 1;
     };
@@ -45,7 +45,6 @@
       '';
     };
     displayManager = {
-      xserverArgs = [ "-nocursor" ];
       autoLogin = {
         enable = true;
         user = "vnc";
@@ -53,9 +52,16 @@
       defaultSession = "none+xmonad";
     };
   };
-  environment.extraInit = ''
-    # Prevent screen from sleeping.
-    xset s off -dpms
+  environment.variables.XCURSOR_SIZE = "64";
+  services.xserver.displayManager.sessionCommands = ''
+    if [ ! -z "$DISPLAY" ]; then
+      # Prevent screen from sleeping.
+      xset s off -dpms
+
+      # Move the mouse cursor to the corner of the screen and hide it.
+      ${pkgs.xdotool}/bin/xdotool mousemove_relative 999999 999999
+      ${pkgs.unclutter}/bin/unclutter -idle 0 -jitter 999999 &
+    fi
   '';
 
   users.users.root.openssh.authorizedKeys.keys = [
