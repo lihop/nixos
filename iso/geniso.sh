@@ -9,3 +9,6 @@ cd "$(dirname "$0")"
 echo -e "Generating NixOS ISO...\n"
 nixos-generate --format iso --configuration ./iso.nix -o result
 echo -e "\nISO generated: ./$(realpath -s --relative-to=${start_dir} ./result/iso/$(ls -1 result/iso))"
+if ! find result/iso -name *.iso -size -8000M | grep -q .; then
+	echo -e "\033[33mWarning: Image may be too large to fit on an 8GB USB flash drive!\033[0m"
+fi

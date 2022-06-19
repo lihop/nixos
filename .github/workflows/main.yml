@@ -1,3 +1,4 @@
+name: 'Check Format and Generate ISO Image'
 on:
   push:
   schedule:
@@ -22,6 +23,11 @@ jobs:
         nix_path: nixpkgs=channel:nixos-unstable
     - uses: ./.github/actions/restore-nix-cache
     - run: iso/geniso.sh
+    - name: Check that image can fit on an 8GB USB flash drive
+      run: |
+        if ! find iso/result/iso -name *.iso -size -8000M | grep -q .; then
+          echo "::warning title=Image too large!::ISO image may be too large to fit on an 8GB USB flash drive."
+        fi
     - uses: actions/upload-artifact@v3
       with:
         name: iso-images
