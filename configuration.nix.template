@@ -1,27 +1,17 @@
 { config, pkgs, ... }:
 
 {
-  # Copy this template to a file called configuration.nix 
-  # and set the devices hostname and hostid
-  networking.hostName = "example";
-  networking.hostId = "12345";
- 
-  # Uncomment configs for this device and its roles
-  imports =
-    [ # Device: 
-        #./devices/chromebook.nix
-        #./devices/desktop.nix
-        #./devices/homeserver.nix
-        #./devices/netbook.nix
-        #./devices/thinkpad-t440p.nix
-        #./devices/vultr-768.nix
-      # Roles:
-        #./roles/build-client.nix
-        #./roles/common.nix
-        #./roles/java-development.nix
-        #./roles/steam-machine.nix
-        #./roles/vultr-vps.nix
-        #./roles/workstation.nix
-        #./roles/workstation-extra.nix
-    ];
+  # Uncomment config for this device, or create a new one and add it below.
+  imports = [
+    #./devices/helios.nix
+    #./devices/selene.nix
+  ];
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. Update this value to match the release version
+  # of the first install of this system. Before changing this value read the
+  # documentation for this option (e.g. man configuration.nix or on
+  # https://nixos.org/nixos/options.html).
+  system.stateVersion = "22.05"; # Did you read the comment?
 }

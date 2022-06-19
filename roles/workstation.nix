@@ -1,44 +1,57 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
+
 {
-  imports = [ ../home-manager.nix ];
+  imports = [ ../modules/home-manager.nix ];
 
   environment.systemPackages = with pkgs; [
     acpi
     asciinema
+    bfg-repo-cleaner
     cacert
+    distcc
     dmenu
     evince
     feh
+    figlet
     firefox
+    gcolor2
     git-secrets
-    gnome3.adwaita-icon-theme
-    gnome3.gnome-sound-recorder
+    gparted
+    gnumake
     haskellPackages.xmobar
     imagemagick
     kitty
+    moreutils
     mupdf
+    ncurses
+    ntfsprogs
     pavucontrol
+    pdftk
+    portfolio
     peek
     scrcpy
     scrot
-    gksu
+    spotify
     jmtpfs
     jrnl
     (mutt.override { gpgmeSupport = true; })
-    (pass.override { x11Support = false; })
+    (pass.override { x11Support = true; })
     rclone
     rxvt_unicode
+    smplayer
     stow
+    toilet
     transmission-gtk
     unrar
     vlc
-    watson
     xclip
     xdotool
     xorg.xev
     xorg.xkill
     xorg.xmodmap
   ];
+
+  nixpkgs.config.firefox.enableAdobeFlash = true;
 
   programs.gnupg.agent.enable = true;
 
@@ -73,14 +86,13 @@
       aegyptus
       dejavu_fonts
       meslo-lg
-      noto-fonts-emoji
       ubuntu_font_family
     ];
   };
 
-  # Enable GNOME Keyring.
-  services.gnome3.gnome-keyring.enable = true;
-  security.pam.services.leroy.enableGnomeKeyring = true;
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal ];
 
   # Home Manager configuration.
   home-manager.users.leroy = { pkgs, ... }: {
@@ -94,7 +106,7 @@
       ];
       extraConfig = ''
         set exrc
-              set makeprg=scons\ -j12\ platform=x11
+        set makeprg=scons\ -j12\ platform=x11
         set secure
       '';
     };
@@ -130,7 +142,8 @@
     programs.bash = with pkgs; {
       enable = true;
 
-      historyFileSize = 1000000;
+      historyFileSize = 10000000;
+      historySize = 10000000;
       historyIgnore = [
         "ls"
         "cd"
@@ -142,8 +155,6 @@
         lock = "xscreensaver-command --lock";
         nur-build = "nix-build --arg pkgs 'import <nixpkgs> {}' -I nixpkgs=$HOME/nixpkgs";
       };
-
-
 
       initExtra = ''
         set -o vi
