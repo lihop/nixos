@@ -23,10 +23,12 @@
     createHome = false;
     shell = "${pkgs.shadow}/bin/nologin";
   };
-  systemd.user.services.vncviewer = {
+  systemd.services.vncviewer = {
     description = "VNC Viewer";
     after = [ "display-manager.service" ];
     serviceConfig = {
+      User = "vnc";
+      Environment = "DISPLAY=:0";
       ExecStart = "${pkgs.tigervnc}/bin/vncviewer -AlertOnFatalError=0 -ReconnectOnError=0 172.26.15.2::5899";
       Restart = "always";
       RestartSec = 1;
