@@ -22,13 +22,13 @@
     description = "X11 VNC";
     after = [ "display-manager.service" ];
     serviceConfig = {
-      ExecStart = "${pkgs.x11vnc}/bin/x11vnc -display :0 -clip xinerama1 -forever -repeat -noxdamage -cursor -multiptr -nonap -allow 172.26.15.1";
+      ExecStart = "${pkgs.x11vnc}/bin/x11vnc -display :0 -clip xinerama1 -forever -repeat -noxdamage -cursor -multiptr -nonap -allow 172.26.15.1 -rfbport 5899";
       Restart = "on-failure";
     };
     wantedBy = [ "default.target" ];
   };
   services.xserver.displayManager.autoLogin = { enable = true; user = "leroy"; };
-  networking.firewall.interfaces.enp0s20f0u1.allowedTCPPorts = [ 5900 ];
+  networking.firewall.interfaces.enp0s20f0u1.allowedTCPPorts = [ 5899 ];
   networking.extraHosts = ''
     # Add VNC client to hosts file.
     172.26.15.1 selene

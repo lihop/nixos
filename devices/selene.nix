@@ -27,7 +27,7 @@
     description = "VNC Viewer";
     after = [ "display-manager.service" ];
     serviceConfig = {
-      ExecStart = "${pkgs.tigervnc}/bin/vncviewer -AlertOnFatalError=0 -ReconnectOnError=0 172.26.15.2";
+      ExecStart = "${pkgs.tigervnc}/bin/vncviewer -AlertOnFatalError=0 -ReconnectOnError=0 172.26.15.2::5899";
       Restart = "always";
       RestartSec = 1;
     };
