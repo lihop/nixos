@@ -1,0 +1,16 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i sh -p nixpkgs-fmt
+
+# SPDX-FileCopyrightText: 2021 Leroy Hopson
+# SPDX-License-Identifier: CC0-1.0
+
+set -e 
+
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep '\.nix$' | sed 's| |\\ |g')
+echo $FILES
+[ -z "$FILES" ] && exit 0
+
+# Lint all selected files.
+echo "$FILES" | xargs nixpkgs-fmt --check
+
+exit 0
