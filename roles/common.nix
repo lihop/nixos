@@ -2,6 +2,11 @@
 
 {
   nix.useSandbox = true;
+  nix.nixPath = [
+    "nixpkgs=/etc/nixos/nixpkgs"
+    "nixos-config=/etc/nixos/configuration.nix"
+  ];
+  environment.etc.gitconfig.text = "[safe]\n\tdirectory = /home/leroy/nixos/nixpkgs\n";
 
   networking.nameservers = [
     "8.8.8.8"

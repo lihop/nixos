@@ -1,3 +1,6 @@
 [submodule "modules/nixos-router"]
 	path = modules/nixos-router
 	url = https://github.com/stanipintjuk/nixos-router
+[submodule "nixpkgs"]
+	path = nixpkgs
+	url = https://github.com/lihop/nixpkgs
