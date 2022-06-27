@@ -36,9 +36,9 @@
     wantedBy = [ "default.target" ];
     startLimitIntervalSec = 0;
   };
+  boot.blacklistedKernelModules = [ "psmouse" ]; # Completely disable touchpad.
   services.xserver = {
     enable = true;
-    synaptics.enable = false;
     windowManager.xmonad = {
       enable = true;
       config = ''
