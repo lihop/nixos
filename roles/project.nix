@@ -68,6 +68,7 @@ in
     ganttproject-bin
     plantuml
     cypress
+    scons
     travis
     xvfb-run
   ];
