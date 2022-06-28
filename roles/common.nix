@@ -56,6 +56,7 @@
   environment.systemPackages = with pkgs; [
     binutils
     borgbackup
+    cacert
     dnsutils
     (import ../pkgs/dotfiles.nix)
     entr
