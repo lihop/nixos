@@ -1,4 +1,6 @@
 name: Restore Nix store from GitHub Actions cache
+env:
+  CACHE_VERSION: 1 # Increment to invalidate cache.
 runs:
   using: "composite"
   steps:
@@ -7,10 +9,10 @@ runs:
       path: |
         /tmp/nix-store
         /tmp/nix-store-db.sqlite
-      key: nix-store-${{ github.job }}-${{ hashFiles('**/*.nix') }}
+      key: nix-store-${{ env.CACHE_VERSION }}-${{ github.job }}-${{ hashFiles('**/*.nix') }}
       restore-keys: |
-        nix-store-${{ github.job }}-
-        nix-store-
+        nix-store-${{ env.CACHE_VERSION }}-${{ github.job }}-
+        nix-store-${{ env.CACHE_VERSION }}-
   - shell: bash
     run: |
       # Initially copied from:
