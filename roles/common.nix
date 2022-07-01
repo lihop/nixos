@@ -72,6 +72,7 @@
     killall
     linuxPackages.usbip
     lsof
+    mtr
     ncdu
     nethogs
     nix-index
