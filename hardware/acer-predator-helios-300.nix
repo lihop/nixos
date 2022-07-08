@@ -19,7 +19,7 @@
 
   networking.wireless.enable = true;
 
-  nix.maxJobs = lib.mkDefault 12;
+  nix.settings.max-jobs = lib.mkDefault 12;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 

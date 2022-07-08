@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  nix.useSandbox = true;
   nix.nixPath = [
     "nixpkgs=/etc/nixos/nixpkgs"
     "nixos-config=/etc/nixos/configuration.nix"
@@ -127,7 +126,10 @@
     auto-optimise-store = true
   '';
 
-  nix.buildCores = 0;
+  nix.settings = {
+    cores = 0;
+    sandbox = true;
+  };
 
   # Add acces to the Nix User Repository (NUR) https://github.com/nix-community/NUR
   nixpkgs.config.packageOverrides = pkgs: {
