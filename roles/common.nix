@@ -32,7 +32,7 @@
     allowBroken = true;
   };
 
-  time.timeZone = "Asia/Ho_Chi_Minh";
+  time.timeZone = "Pacific/Auckland";
 
   console = {
     keyMap = "dvorak-programmer";
