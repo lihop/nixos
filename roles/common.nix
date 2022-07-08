@@ -54,6 +54,7 @@
   '';
 
   environment.systemPackages = with pkgs; [
+    acpi
     binutils
     borgbackup
     cacert
@@ -65,6 +66,7 @@
     git
     hdparm
     htop
+    iftop
     iotop
     iperf
     inetutils
@@ -82,6 +84,7 @@
     patchelf
     pciutils
     powertop
+    pv
     pwgen
     python
     rxvt_unicode
