@@ -65,6 +65,17 @@
       ${pkgs.unclutter}/bin/unclutter -idle 0 -jitter 999999 &
     fi
   '';
+  services.fireqos.enable = true;
+  services.fireqos.config = ''
+    # Prioritize VNC traffic.
+    interface enp0s25 world bidirectional ethernet input rate 1000Mbps output rate 1000Mbps
+      class vnc input commit 10% output commit 10%
+        match port 5899
+  '';
+  networking.localCommands = ''
+    # Disable TCP segmentation offloading which causes ethernet adapter to hang under high load.
+    ${pkgs.ethtool}/bin/ethtool -K enp0s25 tso off
+  '';
 
   users.users.root.openssh.authorizedKeys.keys = [
     # Allow helios root access to this devices root account in order to suspend this
