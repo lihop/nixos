@@ -1,6 +1,6 @@
 name: Restore Nix store from GitHub Actions cache
 env:
-  CACHE_VERSION: 1 # Increment to invalidate cache.
+  CACHE_VERSION: 2 # Increment to invalidate cache.
 runs:
   using: "composite"
   steps:
