@@ -32,7 +32,6 @@
     scrot
     spotify
     jmtpfs
-    jrnl
     (mutt.override { gpgmeSupport = true; })
     (pass.override { x11Support = true; })
     rclone
