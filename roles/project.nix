@@ -2,7 +2,7 @@
 let
   androidComposition = pkgs.androidenv.composeAndroidPackages {
     toolsVersion = "26.1.1";
-    platformToolsVersion = "33.0.1";
+    platformToolsVersion = "33.0.2";
     buildToolsVersions = [ "28.0.3" ];
     platformVersions = [ "28" "29" ];
     useGoogleAPIs = true;
