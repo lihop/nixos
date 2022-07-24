@@ -9,6 +9,7 @@
       ../hardware/acer-predator-helios-300.nix
       (import ../modules/battery-check.nix { inherit pkgs; threshold = 10; })
       ../roles/common.nix
+      ../roles/symbiosis.nix
       ../roles/workstation.nix
       ../roles/workstation-extra.nix
       ../roles/project.nix

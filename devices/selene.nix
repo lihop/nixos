@@ -15,6 +15,7 @@
     })
 
     ../roles/common.nix
+    ../roles/symbiosis.nix
   ];
 
   # Provide monitor for helios using VNC.

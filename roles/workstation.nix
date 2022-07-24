@@ -7,7 +7,6 @@
     acpi
     asciinema
     bfg-repo-cleaner
-    distcc
     dmenu
     evince
     feh
