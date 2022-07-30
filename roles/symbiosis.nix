@@ -17,7 +17,7 @@ in
   environment.variables = {
     CC = "distcc";
     CXX = "distcc g++";
-    DISTCC_HOSTS = "--randomize helios,cpp,lzo selene,cpp,lzo";
+    DISTCC_HOSTS = "--randomize soldier,cpp,lzo spy,cpp,lzo";
   };
   services.distccd = {
     enable = true;

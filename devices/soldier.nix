@@ -1,7 +1,7 @@
 { config, pkgs, lib, options, ... }:
 
 {
-  networking.hostName = "helios";
+  networking.hostName = "soldier";
 
   # Uncomment configs for this device and its roles
   imports =
@@ -32,7 +32,7 @@
   networking.firewall.interfaces.enp0s20f0u1.allowedTCPPorts = [ 5899 ];
   networking.extraHosts = ''
     # Add VNC client to hosts file.
-    172.26.15.1 selene
+    172.26.15.1 spy
   '';
   powerManagement.powerDownCommands = ''
     # Suspend VNC client along with VNC host.
@@ -60,7 +60,7 @@
   '';
 
   # Disable Wi-Fi as antenna is contained in the screen which is currently detached.
-  # Instead get network connection via VNC client device (i.e. selene). eth0 network
+  # Instead get network connection via VNC client device (i.e. spy). eth0 network
   # interface is also broken so use USB ethernet adapter enp0s20f0u1.
   networking.wireless.enable = lib.mkForce false;
   networking.interfaces.enp0s20f0u1.ipv4.addresses = [{
