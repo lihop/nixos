@@ -11,6 +11,7 @@
     wineWowPackages.stable
     protontricks
     libva
+    lutris
     openmw
     xboxdrv
     xorg.xf86inputjoystick

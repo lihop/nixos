@@ -37,6 +37,7 @@ in
     gitAndTools.git-filter-repo
     python3Packages.grip
     jdk11
+    jekyll
     k6
     kops
     kubectl
@@ -55,6 +56,7 @@ in
     react-native-debugger
     reuse
     robo3t
+    ruby
     slack
     valgrind
     virt-viewer

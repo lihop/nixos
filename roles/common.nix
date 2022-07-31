@@ -88,6 +88,7 @@
     python
     rxvt_unicode
     smartmontools
+    speedtest-cli
     socat
     sysbench
     tmux
