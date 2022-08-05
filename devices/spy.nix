@@ -6,21 +6,16 @@
   imports = [
     ../hardware/lenovo-thinkpad-t440p.nix
     (import ../modules/battery-check.nix { inherit pkgs; threshold = 2; })
-
-    # Provide network connectivity to soldier via ethernet interface.
-    (import ../modules/nixos-router/mkRouter.nix {
-      externalInterface = "wlp3s0";
-      internalInterface = "enp0s25";
-      ipRange = "172.26.15.0/24";
-      dnsServers = config.networking.nameservers;
-    })
-
     ../roles/common.nix
     ../roles/symbiosis.nix
     ../roles/home-network.nix
   ];
 
-  services.avahi.interfaces = [ "wlp3s0" "enp0s25" ];
+  services.avahi.interfaces = [ "bond0" ];
+  networking.bonds.bond0 = {
+    interfaces = [ "wlp3s0" "enp0s25" ];
+    driverOptions.mode = "balance-tlb";
+  };
 
   # Provide monitor for soldier using VNC.
   users.users.vnc = {
@@ -73,7 +68,7 @@
   services.fireqos.enable = true;
   services.fireqos.config = ''
     # Prioritize VNC traffic.
-    interface enp0s25 world bidirectional ethernet input rate 1000Mbps output rate 1000Mbps
+    interface wlp3s0 world bidirectional ethernet input rate 1000Mbps output rate 1000Mbps
       class vnc input commit 10% output commit 10%
         match port 5899
   '';
