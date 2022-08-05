@@ -7,7 +7,6 @@
     ../hardware/lenovo-thinkpad-t440p.nix
     (import ../modules/battery-check.nix { inherit pkgs; threshold = 2; })
     ../roles/common.nix
-    ../roles/symbiosis.nix
     ../roles/home-network.nix
   ];
 
