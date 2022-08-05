@@ -3,6 +3,7 @@
 {
   # Uncomment config for this device, or create a new one and add it below.
   imports = [
+    #./devices/heavy.nix
     #./devices/soldier.nix
     #./devices/spy.nix
   ];
