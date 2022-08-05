@@ -10,6 +10,7 @@
       (import ../modules/battery-check.nix { inherit pkgs; threshold = 10; })
       ../roles/common.nix
       ../roles/symbiosis.nix
+      ../roles/home-network.nix
       ../roles/workstation.nix
       ../roles/workstation-extra.nix
       ../roles/project.nix
@@ -17,31 +18,29 @@
       ../roles/gaming.nix
     ];
 
+  services.avahi.interfaces = [ "enp0s20f0u1" ];
+
   # Currently laptop screen is broken (i.e. completely detached) therefore we use
   # a secondary laptop as monitor via VNC.
   systemd.user.services.x11vnc = {
     description = "X11 VNC";
     after = [ "display-manager.service" ];
     serviceConfig = {
-      ExecStart = "${pkgs.x11vnc}/bin/x11vnc -display :0 -clip xinerama1 -forever -repeat -noxdamage -cursor -multiptr -nonap -allow 172.26.15.1 -rfbport 5899";
+      ExecStart = "${pkgs.x11vnc}/bin/x11vnc -display :0 -clip xinerama1 -forever -repeat -noxdamage -cursor -multiptr -nonap -allow spy.local -rfbport 5899";
       Restart = "on-failure";
     };
     wantedBy = [ "default.target" ];
   };
   services.xserver.displayManager.autoLogin = { enable = true; user = "leroy"; };
   networking.firewall.interfaces.enp0s20f0u1.allowedTCPPorts = [ 5899 ];
-  networking.extraHosts = ''
-    # Add VNC client to hosts file.
-    172.26.15.1 spy
-  '';
   powerManagement.powerDownCommands = ''
     # Suspend VNC client along with VNC host.
-    ${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no 172.26.15.1 systemctl suspend
+    ${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no spy.local systemctl suspend
   '';
   powerManagement.resumeCommands = ''
     # When VNC host resumes wake the client using Wake-on-LAN.
     echo "Check connection to VNC client..."
-    while ! ${pkgs.iputils}/bin/ping -c 1 -W 1 172.26.15.1; do
+    while ! ${pkgs.iputils}/bin/ping -c 1 -W 1 spy.local; do
       echo "Sending magic packet to wake VNC client..."
       ${pkgs.wakelan}/bin/wakelan 68:F7:28:A3:2B:04
       sleep 1
@@ -63,11 +62,6 @@
   # Instead get network connection via VNC client device (i.e. spy). eth0 network
   # interface is also broken so use USB ethernet adapter enp0s20f0u1.
   networking.wireless.enable = lib.mkForce false;
-  networking.interfaces.enp0s20f0u1.ipv4.addresses = [{
-    address = "172.26.15.2";
-    prefixLength = 24;
-  }];
-  networking.defaultGateway.address = "172.26.15.1";
 
   # File system maintenance and backup.
   services.fstrim.enable = true;

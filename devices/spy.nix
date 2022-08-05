@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   networking.hostName = "spy";
@@ -12,11 +12,15 @@
       externalInterface = "wlp3s0";
       internalInterface = "enp0s25";
       ipRange = "172.26.15.0/24";
+      dnsServers = config.networking.nameservers;
     })
 
     ../roles/common.nix
     ../roles/symbiosis.nix
+    ../roles/home-network.nix
   ];
+
+  services.avahi.interfaces = [ "wlp3s0" "enp0s25" ];
 
   # Provide monitor for soldier using VNC.
   users.users.vnc = {
@@ -30,7 +34,7 @@
     serviceConfig = {
       User = "vnc";
       Environment = "DISPLAY=:0";
-      ExecStart = "${pkgs.tigervnc}/bin/vncviewer -AlertOnFatalError=0 -ReconnectOnError=0 172.26.15.2::5899";
+      ExecStart = "${pkgs.tigervnc}/bin/vncviewer -AlertOnFatalError=0 -ReconnectOnError=0 soldier.local::5899";
       Restart = "always";
       RestartSec = 1;
     };
