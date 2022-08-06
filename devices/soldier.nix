@@ -41,7 +41,7 @@
     echo "Check connection to VNC client..."
     while ! ${pkgs.iputils}/bin/ping -c 1 -W 1 spy.local; do
       echo "Sending magic packet to wake VNC client..."
-      ${pkgs.wakelan}/bin/wakelan 68:F7:28:A3:2B:04
+      ${pkgs.wakelan}/bin/wakelan D2:B1:7F:91:49:C3
       sleep 1
     done
   '';
