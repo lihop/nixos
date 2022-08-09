@@ -25,10 +25,9 @@ in
 {
   # Distributed C/C++ compilation.
   environment.systemPackages = with pkgs; [
-    distccNoIPv6
-
-    # Compilers.
+    borgbackup
     clang
+    distccNoIPv6
     gcc
   ];
   environment.variables = with pkgs; {

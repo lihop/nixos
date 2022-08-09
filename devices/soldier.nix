@@ -63,7 +63,31 @@
   # interface is also broken so use USB ethernet adapter enp0s20f0u1.
   networking.wireless.enable = lib.mkForce false;
 
-  # File system maintenance and backup.
+  # File system maintenance, optimization, and backup.
+  services.borgmatic = {
+    enable = true;
+    settings.location = {
+      repositories = [ "borg@heavy.local:/var/lib/borgbackup" ];
+      source_directories = [ "/home/leroy" ];
+      exclude_caches = true;
+      exclude_patterns = [
+        "*/Desktop"
+        "*/.cache"
+        "*/.local/share/Steam/steamapps"
+      ];
+    };
+    settings.storage = {
+      ssh_command = "ssh -i /root/.ssh/borg_append_id_rsa";
+      unknown_unencrypted_repo_access_is_ok = true;
+    };
+    settings.retention = {
+      keep_daily = 1;
+      keep_weekly = 4;
+      keep_monthly = 12;
+      keep_yearly = 10;
+    };
+  };
+
   services.fstrim.enable = true;
   services.btrfs.autoScrub = {
     enable = true;
