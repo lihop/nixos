@@ -54,4 +54,15 @@ in
       userServices = true;
     };
   };
+
+  # Traffic shaping.
+  services.fireqos = {
+    enable = true;
+    config = ''
+      # Prioritize VNC traffic.
+      interface bond0 world bidirectional ethernet input rate 80Mbps output rate 80Mbps
+        class vnc input commit 13% output commit 13%
+          match port 5899
+    '';
+  };
 }
