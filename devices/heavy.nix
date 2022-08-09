@@ -82,6 +82,7 @@
   };
 
   networking.useDHCP = lib.mkDefault true;
+  networking.wireless.enable = true;
   nix.settings.max-jobs = lib.mkDefault 4;
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
