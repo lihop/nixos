@@ -7,6 +7,7 @@
     [
       (modulesPath + "/installer/scan/not-detected.nix")
 
+      ../hardware/common.nix
       ../roles/common.nix
       ../roles/home-network.nix
     ];
