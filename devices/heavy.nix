@@ -25,7 +25,10 @@
   };
 
   services.avahi.interfaces = [ "bond0" ];
-  networking.interfaces.bond0.wakeOnLan.enable = true;
+  networking.interfaces.bond0 = {
+    macAddress = "14:DA:E9:33:D9:1D";
+    wakeOnLan.enable = true;
+  };
   networking.bonds.bond0 = {
     interfaces = [ "enp7s0" "wlp0s29u1u2" ];
     driverOptions.mode = "balance-tlb";
