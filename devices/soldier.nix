@@ -17,8 +17,7 @@
       ../roles/gaming.nix
     ];
 
-  services.avahi.interfaces = [ "bond0" ];
-  networking.bonds.bond0.interfaces = [ "enp0s20f0u1" ];
+  services.avahi.interfaces = [ "enp0s20f0u1" ];
 
   # Currently laptop screen is broken (i.e. completely detached) therefore we use
   # a secondary laptop as monitor via VNC.
@@ -32,7 +31,7 @@
     wantedBy = [ "default.target" ];
   };
   services.xserver.displayManager.autoLogin = { enable = true; user = "leroy"; };
-  networking.firewall.interfaces.bond0.allowedTCPPorts = [ 5899 ];
+  networking.firewall.interfaces.enp0s20f0u1.allowedTCPPorts = [ 5899 ];
   powerManagement.powerDownCommands = ''
     # Suspend VNC client along with VNC host.
     ${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no spy.local systemctl suspend

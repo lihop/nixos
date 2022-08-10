@@ -100,13 +100,17 @@ in
   };
 
   # Traffic shaping.
-  services.fireqos = {
-    enable = true;
-    config = ''
-      # Prioritize VNC traffic.
-      interface bond0 world bidirectional ethernet input rate 80Mbps output rate 80Mbps
-        class vnc input commit 13% output commit 13%
-          match port 5899
-    '';
-  };
+  services.fireqos =
+    let
+      iface = if (config.networking.hostName == "soldier") then "enp0s20f0u1" else "bond0";
+    in
+    {
+      enable = true;
+      config = ''
+        # Prioritize VNC traffic.
+        interface ${iface} world bidirectional ethernet input rate 80Mbps output rate 80Mbps
+          class vnc input commit 13% output commit 13%
+            match port 5899
+      '';
+    };
 }
