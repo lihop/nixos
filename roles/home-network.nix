@@ -1,5 +1,16 @@
 { pkgs, config, lib, ... }:
 let
+  masquerade = with pkgs; program:
+    ''
+      # Masquerade as other C/C++ compilers.
+      for f in ${clang}/bin/*; do
+        ln -s $out/bin/${program} $out/bin/$(basename $f)
+      done
+      for f in ${gcc}/bin/*; do
+        ln -sf $out/bin/${program} $out/bin/$(basename $f)
+      done
+    '';
+
   distccNoIPv6 = pkgs.distcc.overrideAttrs (oldAttrs: with pkgs; {
     # Compile distcc without IPv6 support by removing the '--enable-rfc2553' flag,
     # otherwise it will unsuccessfully try to connect to '::1'.
@@ -7,18 +18,20 @@ let
 
     buildInputs = oldAttrs.buildInputs ++ [ makeWrapper ];
 
-    postInstall = ''
-      # Masquerade as other C/C++ compilers.
-      for f in ${clang}/bin/*; do
-        ln -s $out/bin/distcc $out/bin/$(basename $f)
-      done
-      for f in ${gcc}/bin/*; do
-        ln -sf $out/bin/distcc $out/bin/$(basename $f)
-      done
-
+    postInstall = (masquerade "distcc") + ''
       # Ensure distcc can still find the original compilers.
       wrapProgram $out/bin/distcc \
         --set PATH=${gcc}/bin:${clang}/bin:$PATH
+    '';
+  });
+
+  ccacheMasquerade = pkgs.ccache.overrideAttrs (oldAttrs: with pkgs; {
+    buildInputs = oldAttrs.buildInputs ++ [ makeWrapper ];
+
+    postInstall = (masquerade "ccache") + ''
+      # Ensure ccache first searches the distcc masquerade directory for the original compilers.
+      wrapProgram $out/bin/ccache \
+        --set PATH=${distccNoIPv6}/bin:$PATH
     '';
   });
 in
@@ -68,16 +81,17 @@ in
     ];
   };
 
-  # Distributed C/C++ compilation.
+  # Cached and distributed C/C++ compilation.
   environment.systemPackages = with pkgs; [
     borgbackup
+    ccacheMasquerade
     clang
     distccNoIPv6
     gcc
   ];
   environment.variables = with pkgs; {
     DISTCC_HOSTS = "--randomize soldier.local/12,cpp,lzo heavy.local/4,cpp,lzo spy.local/4,cpp,lzo";
-    PATH = "${distccNoIPv6}/bin:$PATH";
+    PATH = "${ccacheMasquerade}/bin:${distccNoIPv6}/bin:$PATH";
   };
   services.distccd = {
     enable = true;
