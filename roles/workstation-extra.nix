@@ -20,6 +20,7 @@
     google-chrome
     hfsprogs
     inkscape
+    jp2a
     krita
     libreoffice
     lm_sensors
