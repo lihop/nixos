@@ -56,8 +56,8 @@ in
       spy = {
         hostName = "spy.local";
         system = "x86_64-linux";
-        maxJobs = 4;
-        speedFactor = 1;
+        maxJobs = 3;
+        speedFactor = 0;
         supportedFeatures = [ "benchmark" "kvm" "nixos-test" ];
       };
     in
