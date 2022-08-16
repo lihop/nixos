@@ -72,6 +72,7 @@
     jq
     killall
     linuxPackages.usbip
+    lm_sensors
     lsof
     mtr
     ncdu

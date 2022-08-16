@@ -23,7 +23,6 @@
     jp2a
     krita
     libreoffice
-    lm_sensors
     looking-glass-client
     pandoc
     (qemu_kvm.override { pulseSupport = true; spiceSupport = true; })
