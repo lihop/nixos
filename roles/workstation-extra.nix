@@ -69,6 +69,7 @@
     "/run/docker.sock"
     "127.0.0.1:4153"
   ];
+  virtualisation.podman.enable = true;
   virtualisation.virtualbox = {
     host.enable = true;
   };
