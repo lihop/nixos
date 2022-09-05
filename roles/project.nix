@@ -49,7 +49,7 @@ in
     minio-client
     mongodb
     mongodb-tools
-    nodejs-14_x
+    nodejs-16_x
     nodePackages.node2nix
     nodePackages.react-native-cli
     pkgconfig
@@ -62,7 +62,7 @@ in
     virt-viewer
     (yarn.overrideAttrs (oldAttrs: {
       # Use different version of nodejs with yarn.
-      buildInputs = [ nodejs-14_x ];
+      buildInputs = [ nodejs-16_x ];
     }))
     clang
     clang-tools
