@@ -18,6 +18,11 @@
     ];
 
   services.avahi.interfaces = [ "enp0s20f0u1" ];
+  networking.firewall.interfaces.enp0s20f0u1.allowedTCPPorts = [
+    5899 # VNC server.
+    8080 # Calibre content server.
+    9090 # Calibre wireless device connections.
+  ];
 
   # Currently laptop screen is broken (i.e. completely detached) therefore we use
   # a secondary laptop as monitor via VNC.
@@ -31,7 +36,6 @@
     wantedBy = [ "default.target" ];
   };
   services.xserver.displayManager.autoLogin = { enable = true; user = "leroy"; };
-  networking.firewall.interfaces.enp0s20f0u1.allowedTCPPorts = [ 5899 ];
   powerManagement.powerDownCommands = ''
     # Suspend VNC client along with VNC host.
     ${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no spy.local systemctl suspend
