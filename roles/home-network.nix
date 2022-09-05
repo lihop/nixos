@@ -42,7 +42,7 @@ in
       soldier = {
         hostName = "soldier.local";
         system = "x86_64-linux";
-        maxJobs = 12;
+        maxJobs = 10;
         speedFactor = 3;
         supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
       };
@@ -56,16 +56,16 @@ in
       spy = {
         hostName = "spy.local";
         system = "x86_64-linux";
-        maxJobs = 3;
+        maxJobs = 2;
         speedFactor = 0;
         supportedFeatures = [ "benchmark" "kvm" "nixos-test" ];
       };
     in
     lib.mkMerge [
       # Ensure device isn't added to itself otherwise it causes a deadlock.
-      (lib.mkIf (config.networking.hostName != "soldier") [ soldier ])
-      (lib.mkIf (config.networking.hostName != "heavy") [ heavy ])
-      (lib.mkIf (config.networking.hostName != "spy") [ spy ])
+      (lib.mkIf (config.networking.hostName == "soldier") [ heavy ])
+      (lib.mkIf (config.networking.hostName == "heavy") [ soldier spy ])
+      (lib.mkIf (config.networking.hostName == "spy") [ soldier heavy ])
     ];
   nix.distributedBuilds = true;
   nix.extraOptions = ''
