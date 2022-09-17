@@ -131,6 +131,7 @@
   nix.settings = {
     cores = 0;
     sandbox = true;
+    experimental-features = [ "nix-command" "flakes" ];
   };
 
   # Add acces to the Nix User Repository (NUR) https://github.com/nix-community/NUR
