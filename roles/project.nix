@@ -57,6 +57,7 @@ in
     reuse
     robo3t
     ruby
+    rust-analyzer
     slack
     valgrind
     virt-viewer
@@ -78,7 +79,23 @@ in
   home-manager.users.leroy = { pkgs, ... }: {
     programs.vscode = {
       enable = true;
-      package = pkgs.vscode-fhs;
+      extensions = with pkgs.vscode-extensions; [
+        arrterian.nix-env-selector
+        bbenoist.nix
+        github.copilot
+        matklad.rust-analyzer
+        ms-dotnettools.csharp
+        ms-python.python
+        ms-vscode.cpptools
+        xaver.clang-format
+      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "godot-tools";
+          publisher = "geequlim";
+          version = "1.3.1";
+          sha256 = "sha256-wJICDW8bEBjilhjhoaSddN63vVn6l6aepPtx8VKTdZA=";
+        }
+      ];
     };
   };
 
