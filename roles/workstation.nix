@@ -93,9 +93,10 @@
 
   # Home Manager configuration.
   home-manager.users.leroy = { pkgs, ... }: {
+    home.stateVersion = "22.11";
     nixpkgs.config.allowUnfree = true;
 
-    programs.home-manager.path = /home/leroy/home-manager;
+    programs.home-manager.path = ../home-manager;
 
     programs.vim = {
       enable = true;
