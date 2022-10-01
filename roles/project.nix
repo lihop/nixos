@@ -82,12 +82,14 @@ in
     programs.vscode = {
       enable = true;
       extensions = with pkgs.vscode-extensions; [
+        angular.ng-template
         arrterian.nix-env-selector
         bbenoist.nix
         matklad.rust-analyzer
         ms-dotnettools.csharp
         ms-python.python
         ms-vscode.cpptools
+        vscodevim.vim
         xaver.clang-format
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
