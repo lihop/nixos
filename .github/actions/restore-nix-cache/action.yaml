@@ -1,7 +1,7 @@
 name: Restore Nix store from GitHub Actions cache
 inputs:
   cache_version:
-    default: 2 # Can be changed to invalidate cache.
+    default: 3 # Can be changed to invalidate cache.
 runs:
   using: "composite"
   steps:
