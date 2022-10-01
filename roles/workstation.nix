@@ -128,7 +128,9 @@
         # Add cargo binaries.
         + ":$HOME/.cargo/bin"
         # Add flutter binaries.
-        + ":$HOME/development/flutter/bin";
+        + ":$HOME/development/flutter/bin"
+        # Add ruby binaries.
+        + ":$HOME/.ruby/bin";
 
       CHROME_EXECUTABLE = "${pkgs.google-chrome}/bin/google-chrome-stable";
 
