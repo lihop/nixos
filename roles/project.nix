@@ -58,7 +58,9 @@ in
     robo3t
     ruby
     rust-analyzer
+    rustc
     slack
+    sqlite
     valgrind
     virt-viewer
     (yarn.overrideAttrs (oldAttrs: {

@@ -8,6 +8,7 @@
     asciinema
     bfg-repo-cleaner
     dmenu
+    exiftool
     evince
     feh
     figlet
@@ -18,6 +19,7 @@
     gnumake
     haskellPackages.xmobar
     imagemagick
+    joplin-desktop
     kitty
     moreutils
     mupdf
@@ -30,6 +32,7 @@
     scrcpy
     scrot
     spotify
+    teams
     jmtpfs
     (mutt.override { gpgmeSupport = true; })
     (pass.override { x11Support = true; })
