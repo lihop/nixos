@@ -80,6 +80,7 @@
     nix-index
     nixpkgs-fmt
     nmap
+    ntfs3g
     p7zip
     patchelf
     pciutils
