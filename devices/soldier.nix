@@ -20,8 +20,6 @@
   services.avahi.interfaces = [ "enp0s20f0u1" ];
   networking.firewall.interfaces.enp0s20f0u1.allowedTCPPorts = [
     5899 # VNC server.
-    8080 # Calibre content server.
-    9090 # Calibre wireless device connections.
   ];
 
   # Currently laptop screen is broken (i.e. completely detached) therefore we use
@@ -30,7 +28,7 @@
     description = "X11 VNC";
     after = [ "display-manager.service" ];
     serviceConfig = {
-      ExecStart = "${pkgs.x11vnc}/bin/x11vnc -display :0 -clip xinerama1 -forever -repeat -noxdamage -cursor -multiptr -nonap -allow spy.local -rfbport 5899";
+      ExecStart = "${pkgs.x11vnc}/bin/x11vnc -display :0 -clip xinerama1 -forever -repeat -noxdamage -cursor -multiptr -nonap -allow 172.26.15.1 -rfbport 5899";
       Restart = "on-failure";
     };
     wantedBy = [ "default.target" ];
@@ -45,7 +43,7 @@
     echo "Check connection to VNC client..."
     while ! ${pkgs.iputils}/bin/ping -c 1 -W 1 spy.local; do
       echo "Sending magic packet to wake VNC client..."
-      ${pkgs.wakelan}/bin/wakelan E2:18:49:F2:C2:49
+      ${pkgs.wakelan}/bin/wakelan 68:F7:28:A3:2B:04
       sleep 1
     done
   '';

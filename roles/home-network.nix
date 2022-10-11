@@ -116,7 +116,7 @@ in
   # Traffic shaping.
   services.fireqos =
     let
-      iface = if (config.networking.hostName == "soldier") then "enp0s20f0u1" else "bond0";
+      iface = if (config.networking.hostName == "soldier") then "enp0s20f0u1" else "enp0s25";
     in
     {
       enable = true;
