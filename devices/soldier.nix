@@ -66,7 +66,7 @@
 
   # File system maintenance, optimization, and backup.
   services.borgmatic = {
-    enable = true;
+    enable = false; # Heavy no longer available.
     settings.location = {
       repositories = [ "borg@heavy.local:/var/lib/borgbackup" ];
       source_directories = [ "/home/leroy" ];
