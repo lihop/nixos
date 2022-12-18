@@ -88,6 +88,7 @@ in
         bbenoist.nix
         matklad.rust-analyzer
         ms-dotnettools.csharp
+        ms-vsliveshare.vsliveshare
         ms-python.python
         ms-vscode.cpptools
         vscodevim.vim
