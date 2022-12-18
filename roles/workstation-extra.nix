@@ -16,8 +16,10 @@
     ffmpeg
     gcc
     gimp
+    gnuradio
     godot
     google-chrome
+    gqrx
     hfsprogs
     inkscape
     jp2a
@@ -27,6 +29,7 @@
     pandoc
     (qemu_kvm.override { pulseSupport = true; spiceSupport = true; })
     scrcpy
+    sdrpp
     skypeforlinux
     spice
     spotify-tui
@@ -105,7 +108,8 @@
   programs.dconf.enable = true;
 
   # Add user to all applicable groups.
-  users.users.leroy.extraGroups = [ "docker" "libvirtd" "usb" "kvm" "vboxusers" ];
+  users.users.leroy.extraGroups = [ "docker" "libvirtd" "plugdev" "usb" "kvm" "vboxusers" ];
+  users.groups.plugdev = { };
 
   # WARNING: virbr0 needs to exist (created by starting virt-manager) otherwise
   # the samba share systemd unit will fail.
@@ -129,4 +133,8 @@
       "wide links" = "yes";
     };
   };
+
+  # RTLSDR.
+  boot.blacklistedKernelModules = [ "dvb_usb_rtl28xxu" ];
+  services.udev.packages = [ pkgs.rtl-sdr ];
 }
