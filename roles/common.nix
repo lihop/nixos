@@ -20,6 +20,8 @@
     EDITOR = "vim";
   };
 
+  environment.wordlist.enable = true;
+
   environment.sessionVariables = {
     GTK_DATA_PREFIX = [
       "${config.system.path}"
