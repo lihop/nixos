@@ -61,7 +61,6 @@ in
     rustc
     slack
     sqlite
-    terraform.full
     valgrind
     virt-viewer
     (yarn.overrideAttrs (oldAttrs: {
