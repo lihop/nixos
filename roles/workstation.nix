@@ -147,11 +147,7 @@
 
       historyFileSize = 10000000;
       historySize = 10000000;
-      historyIgnore = [
-        "ls"
-        "cd"
-        "exit"
-      ];
+      historyControl = [ "ignoredups" "ignorespace" ];
 
       shellAliases = {
         ls = "ls --color=auto";
