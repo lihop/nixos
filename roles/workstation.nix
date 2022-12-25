@@ -86,6 +86,8 @@
       aegyptus
       dejavu_fonts
       meslo-lg
+      (nerdfonts.override { fonts = [ "Meslo" ]; })
+      powerline-fonts
       ubuntu_font_family
     ];
   };
