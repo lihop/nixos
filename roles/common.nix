@@ -80,6 +80,7 @@
     ncdu
     nethogs
     nix-index
+    nix-output-monitor
     nixpkgs-fmt
     nmap
     ntfs3g
