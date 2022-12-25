@@ -17,7 +17,7 @@
     gcc
     gimp
     gnuradio
-    godot
+    godot_4
     google-chrome
     gqrx
     hfsprogs
