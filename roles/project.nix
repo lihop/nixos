@@ -52,7 +52,7 @@ in
     nodejs-16_x
     nodePackages.node2nix
     nodePackages.react-native-cli
-    pkgconfig
+    pkg-config
     react-native-debugger
     reuse
     robo3t

@@ -37,7 +37,7 @@
     (mutt.override { gpgmeSupport = true; })
     (pass.override { x11Support = true; })
     rclone
-    rxvt_unicode
+    rxvt-unicode-unwrapped
     smplayer
     stow
     toilet

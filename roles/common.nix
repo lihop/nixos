@@ -91,7 +91,7 @@
     pv
     pwgen
     python
-    rxvt_unicode
+    rxvt-unicode-unwrapped
     smartmontools
     speedtest-cli
     socat
