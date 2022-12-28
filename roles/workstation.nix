@@ -49,6 +49,7 @@
     xorg.xev
     xorg.xkill
     xorg.xmodmap
+    xorg.xwininfo
   ];
 
   nixpkgs.config.firefox.enableAdobeFlash = true;
