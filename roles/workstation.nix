@@ -137,9 +137,6 @@
 
       CHROME_EXECUTABLE = "${pkgs.google-chrome}/bin/google-chrome-stable";
 
-      # Use custom nixpkgs.
-      NIX_PATH = "$HOME/:$NIX_PATH";
-
       # Install Ruby gems locally. Otherwise an error occurs when Ruby tries
       # to write to the read-only nix store.
       GEM_HOME = "$HOME/.ruby";
@@ -155,7 +152,7 @@
       shellAliases = {
         ls = "ls --color=auto";
         lock = "xscreensaver-command --lock";
-        nur-build = "nix-build --arg pkgs 'import <nixpkgs> {}' -I nixpkgs=$HOME/nixpkgs";
+        nur-build = "nix-build --arg pkgs 'import <nixpkgs> {}' -I nixpkgs=/etc/nixos/nixpkgs";
       };
 
       initExtra = ''
