@@ -105,6 +105,7 @@ in
     enable = true;
     nssmdns = true;
     reflector = true;
+    openFirewall = true;
     publish = {
       enable = true;
       domain = true;

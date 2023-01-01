@@ -184,7 +184,7 @@
     "/swap" = {
       device = "/dev/disk/by-uuid/a2f56bd3-6fa7-4d83-b394-b3601020042b";
       fsType = "btrfs";
-      options = [ "subvol=@swap" "noatime" ];
+      options = [ "subvol=@swap" "noatime" "compress=none" ];
     };
   };
   swapDevices = [{ device = "/swap/swapfile"; }];
