@@ -46,6 +46,13 @@ in
         speedFactor = 3;
         supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
       };
+      scout = {
+        hostName = "scout.local";
+        system = "x86_64-linux";
+        maxJobs = 16;
+        speedFactor = 5;
+        supportedFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
+      };
       spy = {
         hostName = "spy.local";
         system = "x86_64-linux";
@@ -56,8 +63,9 @@ in
     in
     lib.mkMerge [
       # Ensure device isn't added to itself otherwise it causes a deadlock.
-      (lib.mkIf (config.networking.hostName == "soldier") [ spy ])
-      (lib.mkIf (config.networking.hostName == "spy") [ soldier ])
+      (lib.mkIf (config.networking.hostName == "soldier") [ scout spy ])
+      (lib.mkIf (config.networking.hostName == "scout") [ soldier spy ])
+      (lib.mkIf (config.networking.hostName == "spy") [ scout soldier ])
     ];
   nix.distributedBuilds = true;
   nix.extraOptions = ''
@@ -68,6 +76,7 @@ in
   users.extraUsers.root = {
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD6PorE5uGrjGmuxhrN/3Jxlmn/i9mTlFg72dwdTVhDVyHEriJ7GMlHssU0XqmDHi3TAngaULc3D+Km5sYFuGRIAYhcfg8R+lfIqaVvvGm0Ut/MQYQKJvzM49SgFVM5exlknLGtElorhf6x60w1IjkkXhaMWf1Chj47k3mcSsoWodKnAA9DgyFaiIsSKdmW4AuS5WNLo4XpgB9G8RAniAbI0OpNQYgmA/m1ZSBH0I/6DW6x7bta71lYGbGlq4fH+AOPK1eV1PJ/x7G7GdBn2XiZUJ2AaZ2yty0UVOJn+rqJmnjNImXrJMf/vZHtp9QU75VAJfMGo8eT0YxEleyTgHHmj3ReJnrbIRQFA3e2BBR3JtrsyOzw8/RVY1zQKPBpfeXDve5HIX1fb1m996OLQhYqfIJ2Lw6EvSFTWslohhzNp+k5hVHbMBz2Y89YCjtXs4tIKas1+3HcICEbW0AGT/R3PwIWQI/CKM0K6IaENu18IJ07PMtMzCRJxTZPDMwmFvtmSkLftTZBIMp3YHmT1yjmwDI9m79N2OGe/xrwrupRDTLYuTCEhia0zcDWKe3lonlLkVh0uG2j4A6xjZoRM+EmqcuE/IVmqubC6qv7iytqxRocjgul//taWNxRAEavCI6svsRobAC7q9kcG2l+DGcj3AvrSkZEiOJPrVcJSF7gGQ== root@soldier"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDeU++0D3/el64ukXUHwyAsLh+YqGD3zpV/fItHnu9jJOe6qsl5gma14yx+VLo2GwClV8VpGkCEG9ni+urn7rK47G7CckZczo/EuEFjaHG0bFPDe3rp+XTEFnXnHpORpPDWms06aeMcZ7K3EsCLhDVo4F6glZyMbT/jkXIp5QtpftG/uJaW2vMS5+vsbPlIBexT3EpnXrhqspCPXi2eU/ZWb9SfvC5Sk65MqD9oZ+Ofq+GTsH5vbLu5QOmvrqeI425VecpAElofWwWcoy4trnuJcckqkKtK2nlmz6HSNnH7bfnCsStMyI1sFOgAbJ651ySHdAwMfXuGeAo4GhEob5qpAspEEcusJBeAs1YyC6yrEpc6Ppqu/frNXJ3eCnJjNLxw7fSAUWf+fGPVVhvdnZuJ2KS+2cIucpiJpJmVmcMA8Q3q1irQpBXDqfu3DXM42RRC+t/LJEpWlYovaKMjDAgbzZohO1sWV5q7FCJKzP0JIWuArnm+UAtTeRuh+VY7zskL9TtsZXp7gDew3fN8v6awnKJ4E6oJUDuZfqtD44d6ZCWUNLqxQAU1/HtmnwPBQnXTyl/BdRupI/6YE2nDEuUcfy6C6XcZC1HOSUwCcwDpCiILIpqYMSC4g4Y6/0UjLkKpQ1R8zu3CQn6g3Ck8RRYsROkYmYcHheu8loxIY0Rl1Q== root@scout"
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDW5EH1cUTZ8ygn7ZZzTUmyrIe/3fIbeUH8DbzbcvFzGevNOG3RC98UNEs0p8YQ1/r0ZGa71pgzo1EmAWhKkUjhCqAEC5TLycdxrk8zge4dSE4J9vObLiSLSwH2FxBpYOozMODZDaWu/tpULACWpqU8s2cM4+1V7Z3FhvG+KVfNsR2tnrEwe0S6Ub/jvQeUmgSgeXv4phV2oI+Ij9p0AefJ3LjixjpMKjtvSBBt2i/0cRB3XBevPLZJS1N4d4FTAngEca6LViTbUjZg+5yEUjbc+/gdD4X7qFbRvZsNTldKgyj3cmkElVww0FWvCn0szxefLwDFT5/qdxn3gDDpanAuh1JhD/pG3XaOR4GRGckFyWloDeXCOHyT64CIIa5JJcXkpmu14uOzhz4C3X0zSAGlHHMspKSk70JkRNop5jIun3hDtKetMrW3n52MaEvPz6VcfAD38+J0jNxmKqLTZhpBl1dO5L56epVxbRwOuz1eRyDNmkSl4eT/npb2Gmt8tOtE5Zil7aGW/dk2OtkZRRWOl9zSzPpugVU8hTAmC3jlYaW2X7ZQUDqwdSJDaMAgUVI80Yx/EuzChWtavc1RcR6QJaWSau4d+xSqHphpX8eT+k/59yZ4qy7OxKKRXcAMSXgAGBN3qCBDYGoaIzChQyMEw6JDq7AKsqgBx3xLknwp/w== root@spy"
     ];
   };
