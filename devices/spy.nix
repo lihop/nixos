@@ -17,9 +17,6 @@
     })
   ];
 
-
-  services.avahi.interfaces = [ "enp0s25" ];
-
   # Provide monitor for soldier using VNC.
   users.users.vnc = {
     isNormalUser = true;

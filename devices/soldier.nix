@@ -17,7 +17,6 @@
       ../roles/gaming.nix
     ];
 
-  services.avahi.interfaces = [ "enp0s20f0u1" ];
   networking.firewall.interfaces.enp0s20f0u1.allowedTCPPorts = [
     5899 # VNC server.
   ];

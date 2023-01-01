@@ -104,6 +104,7 @@ in
   services.avahi = {
     enable = true;
     nssmdns = true;
+    reflector = true;
     publish = {
       enable = true;
       domain = true;
