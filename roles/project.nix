@@ -81,6 +81,11 @@ in
   ];
 
   home-manager.users.leroy = { pkgs, ... }: {
+    home.sessionVariables = {
+      SCONS_CACHE = "$HOME/.cache/scons-cache";
+      EM_CACHE = "$HOME/.cache/em-cache";
+    };
+
     programs.vscode = {
       enable = true;
       extensions = with pkgs.vscode-extensions; [
