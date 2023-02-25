@@ -63,8 +63,10 @@ in
     in
     lib.mkMerge [
       # Ensure device isn't added to itself otherwise it causes a deadlock.
-      (lib.mkIf (config.networking.hostName == "soldier") [ scout spy ])
-      (lib.mkIf (config.networking.hostName == "scout") [ soldier spy ])
+      # Don't allow weaker machines to build for strong ones, otherwise they
+      # will be prioritized over the local (stronger) machine.
+      (lib.mkIf (config.networking.hostName == "soldier") [ scout ])
+      (lib.mkIf (config.networking.hostName == "scout") [ soldier ])
       (lib.mkIf (config.networking.hostName == "spy") [ scout soldier ])
     ];
   nix.distributedBuilds = true;
@@ -105,6 +107,7 @@ in
     enable = true;
     nssmdns = true;
     reflector = true;
+    openFirewall = true;
     publish = {
       enable = true;
       domain = true;
