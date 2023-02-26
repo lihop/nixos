@@ -17,7 +17,6 @@
     gcc
     gimp
     gnuradio
-    godot_4
     google-chrome
     gqrx
     hfsprogs
@@ -110,29 +109,6 @@
   # Add user to all applicable groups.
   users.users.leroy.extraGroups = [ "docker" "libvirtd" "plugdev" "usb" "kvm" "vboxusers" ];
   users.groups.plugdev = { };
-
-  # WARNING: virbr0 needs to exist (created by starting virt-manager) otherwise
-  # the samba share systemd unit will fail.
-  services.samba.enable = true;
-  services.samba.openFirewall = true;
-  services.samba.extraConfig = ''
-    interfaces = 192.168.122.0/24 virbr0
-    bind interfaces only = yes
-    map to guest = bad user
-    unix extensions = no
-  '';
-  services.samba.shares = {
-    shared = {
-      path = "/home/leroy/vms/shared";
-      public = "yes";
-      "guest only" = "yes";
-      writable = "yes";
-      browseable = "yes";
-      "force user" = "leroy";
-      "follow symlinks" = "yes";
-      "wide links" = "yes";
-    };
-  };
 
   # RTLSDR.
   boot.blacklistedKernelModules = [ "dvb_usb_rtl28xxu" ];
