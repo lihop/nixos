@@ -7,6 +7,14 @@
 
   programs.steam.enable = true;
 
+  nixpkgs.config.packageOverrides = pkgs: {
+    steam = pkgs.steam.override {
+      extraPkgs = pkgs: with pkgs; [
+        ncurses # Required by Paradox launcher.
+      ];
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     wineWowPackages.stable
     protontricks
