@@ -44,49 +44,8 @@
     };
   };
 
-  networking.firewall.interfaces.enp0s20f0u1.allowedTCPPorts = [
-    5899 # VNC server.
-  ];
-
-  # Currently laptop screen is broken (i.e. completely detached) therefore we use
-  # a secondary laptop as monitor via VNC.
-  systemd.user.services.x11vnc = {
-    description = "X11 VNC";
-    after = [ "display-manager.service" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.x11vnc}/bin/x11vnc -display :0 -clip xinerama1 -forever -repeat -noxdamage -cursor -multiptr -nonap -allow 172.26.15.1 -rfbport 5899";
-      Restart = "on-failure";
-    };
-    wantedBy = [ "default.target" ];
-  };
-  services.xserver.displayManager.autoLogin = { enable = true; user = "leroy"; };
-  powerManagement.powerDownCommands = ''
-    # Suspend VNC client along with VNC host.
-    ${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=no spy.local systemctl suspend
-  '';
-  powerManagement.resumeCommands = ''
-    # When VNC host resumes wake the client using Wake-on-LAN.
-    echo "Check connection to VNC client..."
-    while ! ${pkgs.iputils}/bin/ping -c 1 -W 1 spy.local; do
-      echo "Sending magic packet to wake VNC client..."
-      ${pkgs.wakelan}/bin/wakelan 68:F7:28:A3:2B:04
-      sleep 1
-    done
-  '';
-  services.xserver.displayManager.setupCommands = ''
-    # Set output mode to match VNC client screen resolution.
-    # Might not work if the monitor is phyiscally connected and the connected screens
-    # EDID does not support the given resolution.
-    ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --mode 1600x900 || true
-  '';
-  services.xserver.screenSection = ''
-    # Ensure monitor is always considered connected (even if it physically isn't)
-    # so we can use it for VNC.
-    Option "ConnectedMonitor" "HDMI-0"
-  '';
-
   # Disable Wi-Fi as antenna is contained in the screen which is currently detached.
-  # Instead get network connection via VNC client device (i.e. spy). eth0 network
+  # Instead get network connection via internet host device (i.e. spy). eth0 network
   # interface is also broken so use USB ethernet adapter enp0s20f0u1.
   networking.wireless.enable = lib.mkForce false;
 

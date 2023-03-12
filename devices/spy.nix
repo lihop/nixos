@@ -17,54 +17,10 @@
     })
   ];
 
-  # Provide monitor for soldier using VNC.
-  users.users.vnc = {
-    isNormalUser = true;
-    createHome = false;
-    shell = "${pkgs.shadow}/bin/nologin";
-  };
-  systemd.services.vncviewer = {
-    description = "VNC Viewer";
-    after = [ "display-manager.service" ];
-    serviceConfig = {
-      User = "vnc";
-      Environment = "DISPLAY=:0";
-      ExecStart = "${pkgs.tigervnc}/bin/vncviewer -AlertOnFatalError=0 -ReconnectOnError=0 soldier.local::5899";
-      Restart = "always";
-      RestartSec = 1;
-    };
-    wantedBy = [ "default.target" ];
-    startLimitIntervalSec = 0;
-  };
-  boot.blacklistedKernelModules = [ "psmouse" ]; # Completely disable touchpad.
-  services.xserver = {
-    enable = true;
-    windowManager.xmonad = {
-      enable = true;
-      config = ''
-        import XMonad
-        main = xmonad $ def { borderWidth = 0 }
-      '';
-    };
-    displayManager = {
-      autoLogin = {
-        enable = true;
-        user = "vnc";
-      };
-      defaultSession = "none+xmonad";
-    };
-  };
-  environment.variables.XCURSOR_SIZE = "64";
-  services.xserver.displayManager.sessionCommands = ''
-    if [ ! -z "$DISPLAY" ]; then
-      # Prevent screen from sleeping.
-      xset s off -dpms
+  # Prevent from sleeping when lid is closed.
+  services.logind.lidSwitch = "ignore";
+  boot.kernelParams = [ "button.lid_init_state=open" ];
 
-      # Move the mouse cursor to the corner of the screen and hide it.
-      ${pkgs.xdotool}/bin/xdotool mousemove_relative 999999 999999
-      ${pkgs.unclutter}/bin/unclutter -idle 0 -jitter 999999 &
-    fi
-  '';
   networking.localCommands = ''
     # Disable TCP segmentation offloading which causes ethernet adapter to hang under high load.
     ${pkgs.ethtool}/bin/ethtool -K enp0s25 tso off
@@ -76,6 +32,9 @@
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD6PorE5uGrjGmuxhrN/3Jxlmn/i9mTlFg72dwdTVhDVyHEriJ7GMlHssU0XqmDHi3TAngaULc3D+Km5sYFuGRIAYhcfg8R+lfIqaVvvGm0Ut/MQYQKJvzM49SgFVM5exlknLGtElorhf6x60w1IjkkXhaMWf1Chj47k3mcSsoWodKnAA9DgyFaiIsSKdmW4AuS5WNLo4XpgB9G8RAniAbI0OpNQYgmA/m1ZSBH0I/6DW6x7bta71lYGbGlq4fH+AOPK1eV1PJ/x7G7GdBn2XiZUJ2AaZ2yty0UVOJn+rqJmnjNImXrJMf/vZHtp9QU75VAJfMGo8eT0YxEleyTgHHmj3ReJnrbIRQFA3e2BBR3JtrsyOzw8/RVY1zQKPBpfeXDve5HIX1fb1m996OLQhYqfIJ2Lw6EvSFTWslohhzNp+k5hVHbMBz2Y89YCjtXs4tIKas1+3HcICEbW0AGT/R3PwIWQI/CKM0K6IaENu18IJ07PMtMzCRJxTZPDMwmFvtmSkLftTZBIMp3YHmT1yjmwDI9m79N2OGe/xrwrupRDTLYuTCEhia0zcDWKe3lonlLkVh0uG2j4A6xjZoRM+EmqcuE/IVmqubC6qv7iytqxRocjgul//taWNxRAEavCI6svsRobAC7q9kcG2l+DGcj3AvrSkZEiOJPrVcJSF7gGQ== root@soldier"
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC8tOhj726PYsM2w46IPRc+v/NgEhHJjw+VjmEmOHEX3+XhYU8DKvomNWajggpWC9sDhpBDey028Vv25hCY1tin31dwCM6KWeKJ0HIeM4iUbB1w6CwJz+Xee9wmkqRVLd0mH9CgJ9auanY9XWGYiJisG6dR1xVkoF2fDXe+j4VQ4s4Ai5hVCiC1nGq4fxroTOEzUol/mEtmuGZOiYrXj84HycASf1yACu1EhZa9cj6QsEajAT4NKf9+6lnRK6z2UeUvrpeabgJ5JdBTjg454IwfIAtJ5ZQ3h17Zco3uZ6ZGlEjOfPqAssuBTW1tDCNEQVUPFB6zUiXD0N1WvPQ0DtKqmwCpIITKt6jX+BV+hrtB7gp9itByEOFDJqziZjd6EDj8l7O4D/YzSGuPz1xS9NJnb0I7S7WG6ABNm3usDb1ta+ZW5olN+66Wj7aOK+ELDysXLJEKOVLmNtyxNriR7vUxEDsJ7R8PF9KUk9f7RuqLcS4dCKh9V635T6NKHCO3Ru9HdyvHMLhzvAzWdOBkRqIJ8u9wPhDRYdIAHICZdYE3LpY4RcZ2wui8+dt5KplbUbpaOhEc41wfuCaanOXN4HgBuLBcuGBqnAHKmCz5+7x5ePlfokiCLxvOoR3nYywdHKXfhU8Vhw1vpwSyg2j0meL1mI4rdZvm55E3XIgdnU+pXw== leroy@soldier"
   ];
+
+  # Completely disable touchpad.
+  boot.blacklistedKernelModules = [ "psmouse" ];
 
   # File system maintenance.
   services.beesd.filesystems."root" = {
