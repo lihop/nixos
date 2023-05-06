@@ -90,7 +90,6 @@
     powertop
     pv
     pwgen
-    python
     rxvt-unicode-unwrapped
     smartmontools
     speedtest-cli
