@@ -1,7 +1,7 @@
 { lib, pkgs, modulesPath, ... }:
 
 {
-  boot.kernelPackages = pkgs.linuxPackages_5_15;
+  boot.kernelPackages = pkgs.linuxPackages_6_1;
   boot.loader.timeout = lib.mkForce 1;
   boot.kernelParams = [
     "delayacct" # Required by iotop.
