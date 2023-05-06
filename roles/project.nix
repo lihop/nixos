@@ -29,8 +29,6 @@
     libimobiledevice
     mariadb-client
     minio-client
-    mongodb
-    mongodb-tools
     nodejs-16_x
     nodePackages.node2nix
     nodePackages.react-native-cli
