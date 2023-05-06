@@ -52,8 +52,6 @@
     xorg.xwininfo
   ];
 
-  nixpkgs.config.firefox.enableAdobeFlash = true;
-
   programs.gnupg.agent.enable = true;
 
   programs.ssh.setXAuthLocation = true;
