@@ -100,7 +100,6 @@
 
   # Needed to store VSCode auth token.
   services.gnome.gnome-keyring.enable = true;
-  nixpkgs.overlays = [ (import ../overlays/gnome-keyring.nix) ];
 
   # Set environment variables required by PlantUML LaTeX plugin.
   environment.variables.PLANTUML_JAR = "${pkgs.plantuml}/lib/plantuml.jar";
