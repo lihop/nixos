@@ -11,8 +11,6 @@
     chromium
     discord
     espeak
-    fahcontrol
-    fahviewer
     ffmpeg
     gcc
     gimp
