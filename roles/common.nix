@@ -114,7 +114,7 @@
   programs.bash.enableCompletion = true;
 
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
+  services.openssh.settings.PasswordAuthentication = false;
 
   users.extraGroups.leroy.gid = 1000;
   users.extraUsers.leroy = {
