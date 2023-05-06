@@ -1,28 +1,10 @@
 { config, pkgs, ... }:
-let
-  androidComposition = pkgs.androidenv.composeAndroidPackages {
-    toolsVersion = "26.1.1";
-    platformToolsVersion = "33.0.2";
-    buildToolsVersions = [ "28.0.3" ];
-    platformVersions = [ "28" "29" ];
-    useGoogleAPIs = true;
-    includeExtras = [
-      "extras;google;gcm"
-    ];
-  };
-in
+
 {
   programs.adb.enable = true;
   users.users.leroy.extraGroups = [ "adbusers" ];
 
-  nixpkgs.config.android_sdk = {
-    accept_license = true;
-  };
-  environment.variables.ANDROID_SDK_ROOT = "${androidComposition.androidsdk}/libexec/android-sdk";
-
   environment.systemPackages = with pkgs; [
-    androidComposition.androidsdk
-    android-studio
     awscli
     cargo
     clang_9
