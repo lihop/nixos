@@ -4,14 +4,6 @@
   imports = [ ./common.nix ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "sd_mod" ];
-  boot.kernelPatches = [
-    {
-      # Patch to enable UNITEK USB ethernet adapter to work after suspend/resume.
-      name = "ax88179_178a";
-      patch = ../patches/ax88179_178a.patch;
-    }
-  ];
-
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # Fix graphical corruption on suspend/resume.
