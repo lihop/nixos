@@ -91,10 +91,6 @@
     ];
   };
 
-  services.flatpak.enable = true;
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal ];
-
   # Home Manager configuration.
   home-manager.users.leroy = { pkgs, ... }: {
     home.stateVersion = "22.11";
