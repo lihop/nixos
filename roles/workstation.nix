@@ -42,7 +42,6 @@
         );
       });
     })
-    nixopsUnstable
     ntfsprogs
     pavucontrol
     pdftk
