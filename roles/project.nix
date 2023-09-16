@@ -26,10 +26,12 @@
     kubectx
     kubernetes-helm
     kustomize
+    libguestfs
     libimobiledevice
     mariadb-client
     minio-client
-    nodejs-16_x
+    ncurses.dev
+    nodejs-18_x
     nodePackages.node2nix
     nodePackages.react-native-cli
     pkg-config
@@ -45,10 +47,7 @@
     vagrant
     valgrind
     virt-viewer
-    (yarn.overrideAttrs (oldAttrs: {
-      # Use different version of nodejs with yarn.
-      buildInputs = [ nodejs-16_x ];
-    }))
+    yarn
     clang
     clang-tools
     dbus
@@ -68,6 +67,13 @@
 
     programs.vscode = {
       enable = true;
+      package = (pkgs.vscode.override { isInsiders = true; }).overrideAttrs (oldAttrs: rec {
+        src = (builtins.fetchTarball {
+          url = "https://code.visualstudio.com/sha/download?build=insider&os=linux-x64";
+          sha256 = "sha256:1nvmnf4w2894v21zcmh1xzcxzzilc10qsqhz2i5hqvrn2vcw0ivv";
+        });
+        version = "latest";
+      });
       extensions = with pkgs.vscode-extensions; [
         angular.ng-template
         arrterian.nix-env-selector

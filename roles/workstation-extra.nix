@@ -24,6 +24,7 @@
     libreoffice
     looking-glass-client
     pandoc
+    playonlinux
     (qemu_kvm.override { pulseSupport = true; spiceSupport = true; })
     scrcpy
     sdrpp

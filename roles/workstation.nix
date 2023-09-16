@@ -53,7 +53,8 @@
     teams
     jmtpfs
     (mutt.override { gpgmeSupport = true; })
-    (pass.override { x11Support = true; })
+    (pass.override { x11Support = false; })
+    pinentry-curses
     rclone
     rxvt-unicode-unwrapped
     smplayer
