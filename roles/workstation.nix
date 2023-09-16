@@ -3,11 +3,6 @@
 {
   imports = [ ../modules/home-manager.nix ];
 
-  # Required for nixopsUnstable.
-  nixpkgs.config.permittedInsecurePackages = [
-    "python3.10-cryptography-3.4.8"
-  ];
-
   environment.systemPackages = with pkgs; [
     acpi
     asciinema
@@ -29,19 +24,6 @@
     moreutils
     mupdf
     ncurses
-    (nixopsUnstable.override {
-      overrides = (self: super: {
-        nixopsvbox = super.nixopsvbox.overridePythonAttrs (
-          _: {
-            src = pkgs.fetchgit {
-              url = "https://github.com/ibizaman/nixops-vbox.git";
-              rev = "fc91bfe017dcfbe116526d8dad16bc88300efc46";
-              sha256 = "sha256-MOPMxirrFGD0qijDVMjUPddJC7Vvwxma1RDVxiduwVQ=";
-            };
-          }
-        );
-      });
-    })
     ntfsprogs
     pavucontrol
     pdftk
