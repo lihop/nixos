@@ -97,25 +97,22 @@
     cleanupInterval = "8h";
     configs =
       let
-        extraConfig = ''
-          TIMELINE_CREATE=yes
-          TIMELINE_CLEANUP=yes
-          TIMELINE_LIMIT_HOURLY=8
-          TIMELINE_LIMIT_DAILY=7
-          TIMELINE_LIMIT_MONTHLY=3
-          TIMELINE_LIMIT_YEARLY=3
-        '';
+        common = {
+          TIMELINE_CREATE = true;
+          TIMELINE_CLEANUP = true;
+          TIMELINE_LIMIT_HOURLY = 8;
+          TIMELINE_LIMIT_DAILY = 7;
+          TIMELINE_LIMIT_MONTHLY = 3;
+          TIMELINE_LIMIT_YEARLY = 3;
+        };
       in
       {
-        "root" = {
-          subvolume = "/";
-          inherit extraConfig;
+        "root" = common // {
+          SUBVOLUME = "/";
         };
-        "home" = {
-          subvolume = "/home";
-          extraConfig = extraConfig + ''
-            ALLOW_USERS=leroy
-          '';
+        "home" = common // {
+          SUBVOLUME = "/home";
+          ALLOW_USERS = [ "leroy" ];
         };
       };
   };
