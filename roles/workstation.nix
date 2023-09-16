@@ -82,7 +82,7 @@
   fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
-    fonts = with pkgs; [
+    packages = with pkgs; [
       aegyptus
       dejavu_fonts
       meslo-lg
