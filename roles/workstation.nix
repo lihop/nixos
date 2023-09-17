@@ -181,4 +181,6 @@
 
     xsession.windowManager.xmonad.config = ../dotfiles/xmonad.hs;
   };
+
+  services.logind.extraConfig = "RuntimeDirectorySize=4G";
 }
