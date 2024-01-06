@@ -9,9 +9,9 @@
     bridge-utils
     calibre
     chromium
-    discord
     espeak
     ffmpeg
+    fspy
     gcc
     gimp
     gnuradio

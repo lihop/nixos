@@ -105,7 +105,7 @@ in
   # Service discovery.
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     reflector = true;
     openFirewall = true;
     publish = {

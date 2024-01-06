@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ../modules/home-manager.nix ];
+  home-manager.users.leroy = { pkgs, ... }: { };
+
   nix.nixPath = [
     "nixpkgs=/etc/nixos/nixpkgs"
     "nixos-config=/etc/nixos/configuration.nix"
@@ -30,7 +33,6 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-    allowBroken = true;
   };
 
   time.timeZone = "Pacific/Auckland";

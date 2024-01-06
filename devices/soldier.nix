@@ -17,10 +17,6 @@
       ../roles/gaming.nix
     ];
 
-  environment.systemPackages = with pkgs; [
-    godot_4
-  ];
-
   # WARNING: virbr0 needs to exist (created by starting virt-manager) otherwise
   # the samba share systemd unit will fail.
   services.samba.enable = true;

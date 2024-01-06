@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 {
-  imports = [ ../modules/home-manager.nix ];
-
   environment.systemPackages = with pkgs; [
     acpi
     asciinema
@@ -32,7 +30,6 @@
     scrcpy
     scrot
     spotify
-    teams
     jmtpfs
     (mutt.override { gpgmeSupport = true; })
     (pass.override { x11Support = false; })
