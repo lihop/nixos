@@ -21,6 +21,7 @@
     python3Packages.grip
     jdk11
     jekyll
+    just
     k6
     kops
     kubectl
@@ -35,6 +36,7 @@
     nodejs-18_x
     nodePackages.node2nix
     pkg-config
+    pre-commit
     react-native-debugger
     reuse
     robo3t
