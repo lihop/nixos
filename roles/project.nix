@@ -67,24 +67,7 @@
 
     programs.vscode = {
       enable = true;
-      extensions = with pkgs.vscode-extensions; [
-        angular.ng-template
-        arrterian.nix-env-selector
-        bbenoist.nix
-        matklad.rust-analyzer
-        ms-dotnettools.csharp
-        ms-python.python
-        ms-vscode.cpptools
-        vscodevim.vim
-        xaver.clang-format
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "copilot-nightly";
-          publisher = "GitHub";
-          version = "1.45.6799";
-          sha256 = "sha256-OCTQEINMWRVs2j62d4ahLN/r/5w2h2ICacI0dvhuNPw=";
-        }
-      ];
+      package = pkgs.vscode.fhs;
     };
   };
 
