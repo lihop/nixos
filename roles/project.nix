@@ -12,12 +12,16 @@
     docker-compose
     dotnetCorePackages.sdk_6_0
     dotnetPackages.Nuget
+    doxygen
     edb
     fastlane
     gd
     gitlab-runner
     gitAndTools.git-filter-repo
-    godot_4
+    godot3
+    (godot_4.overrideAttrs (oldAttrs: {
+      sconsFlags = oldAttrs.sconsFlags ++ [ "debug_symbols=yes" ];
+    }))
     python3Packages.grip
     jdk11
     jekyll
@@ -33,7 +37,7 @@
     mariadb-client
     minio-client
     ncurses.dev
-    nodejs-18_x
+    nodejs_20
     nodePackages.node2nix
     pkg-config
     pre-commit
