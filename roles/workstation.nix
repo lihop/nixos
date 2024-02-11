@@ -69,10 +69,12 @@
         xmodmap ~/.Xmodmap
       '';
     displayManager.defaultSession = "none+xmonad";
-    layout = "us";
-    xkbVariant = "dvp";
     windowManager.xmonad.enable = true;
     windowManager.xmonad.enableContribAndExtras = true;
+    xkb = {
+      layout = "us";
+      variant = "dvp";
+    };
   };
 
   hardware.pulseaudio.enable = true;
