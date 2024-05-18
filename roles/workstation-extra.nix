@@ -11,7 +11,6 @@
     chromium
     espeak
     ffmpeg
-    fspy
     gcc
     gimp
     gnuradio
@@ -30,7 +29,6 @@
     sdrpp
     skypeforlinux
     spice
-    spotify-tui
     spotifyd
     taskwarrior
     thunderbird
@@ -71,9 +69,6 @@
     "127.0.0.1:4153"
   ];
   virtualisation.podman.enable = true;
-  virtualisation.virtualbox = {
-    host.enable = true;
-  };
   virtualisation.libvirtd.enable = true;
   virtualisation.docker.enableNvidia = true;
 

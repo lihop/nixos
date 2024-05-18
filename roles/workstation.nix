@@ -69,7 +69,6 @@
       ''
         xmodmap ~/.Xmodmap
       '';
-    displayManager.defaultSession = "none+xmonad";
     windowManager.xmonad.enable = true;
     windowManager.xmonad.enableContribAndExtras = true;
     xkb = {
@@ -77,6 +76,7 @@
       variant = "dvp";
     };
   };
+  services.displayManager.defaultSession = "none+xmonad";
 
   hardware.pulseaudio.enable = true;
   fonts = {

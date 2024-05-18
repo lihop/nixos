@@ -15,10 +15,8 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
-  services.xserver = {
-    libinput.enable = true;
-    videoDrivers = [ "nvidia" ];
-  };
+  services.libinput.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   virtualisation.kvmgt = {
     enable = true;

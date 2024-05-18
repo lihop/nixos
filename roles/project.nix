@@ -7,9 +7,8 @@
   environment.systemPackages = with pkgs; [
     awscli
     cargo
-    clang_9
     cmake
-    dfeet
+    d-spy
     docker-compose
     dotnetCorePackages.sdk_6_0
     dotnetPackages.Nuget
