@@ -8,6 +8,7 @@
     awscli
     cargo
     clang_9
+    cmake
     dfeet
     docker-compose
     dotnetCorePackages.sdk_6_0
@@ -23,6 +24,9 @@
       sconsFlags = oldAttrs.sconsFlags ++ [ "debug_symbols=yes" ];
     }))
     python3Packages.grip
+    python3Packages.pip
+    python3Packages.sphinx
+    python3Packages.sphinx_rtd_theme
     jdk11
     jekyll
     just

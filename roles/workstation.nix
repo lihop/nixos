@@ -22,6 +22,7 @@
     moreutils
     mupdf
     ncurses
+    neofetch
     ntfsprogs
     pavucontrol
     pdftk
