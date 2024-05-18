@@ -75,31 +75,18 @@
     enable = true;
     fileSystems = [ "/" "/nix" ];
   };
-  services.beesd.filesystems =
-    let
-      common = { extraOptions = [ "--scan-mode" "2" "--thread-count" "1" "--loadavg-target" "5" ]; };
-    in
-    {
-      root = common // {
-        hashTableSizeMB = 1024;
-        spec = "UUID=3c5792f1-1c5d-4482-9d1c-4282edc505d8";
-      };
-      nix = common // {
-        hashTableSizeMB = 128;
-        spec = "UUID=a2f56bd3-6fa7-4d83-b394-b3601020042b";
-      };
-    };
   services.snapper = {
-    cleanupInterval = "8h";
+    cleanupInterval = "1h";
     configs =
       let
         common = {
+          EMPTY_PRE_POST_CLEANUP = true;
           TIMELINE_CREATE = true;
           TIMELINE_CLEANUP = true;
-          TIMELINE_LIMIT_HOURLY = 8;
+          TIMELINE_LIMIT_HOURLY = 24;
           TIMELINE_LIMIT_DAILY = 7;
-          TIMELINE_LIMIT_MONTHLY = 3;
-          TIMELINE_LIMIT_YEARLY = 3;
+          TIMELINE_LIMIT_MONTHLY = 0;
+          TIMELINE_LIMIT_YEARLY = 0;
         };
       in
       {
@@ -108,7 +95,7 @@
         };
         "home" = common // {
           SUBVOLUME = "/home";
-          ALLOW_USERS = [ "leroy" ];
+          ALLOW_GROUPS = [ "users" ];
         };
       };
   };
