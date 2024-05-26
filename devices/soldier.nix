@@ -121,6 +121,7 @@
     "/boot" = {
       device = "/dev/disk/by-uuid/1D81-48E4";
       fsType = "vfat";
+      options = [ "umask=0077" ];
     };
 
     "/nix" = {
