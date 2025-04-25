@@ -1,4 +1,4 @@
-{ modulesPath, ... }:
+{ modulesPath, pkgs, lib, ... }:
 
 {
   imports = [
@@ -7,9 +7,9 @@
     ../roles/common.nix
   ];
 
-  # Enable cloud-init so ISO can be used with cloud providers (e.g. Vultr).
-  services.cloud-init = {
-    enable = true;
-    btrfs.enable = true;
-  };
+  # Disable broken ZFS filesystem support.
+  boot.supportedFilesystems.zfs = lib.mkForce false;
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;
 }
