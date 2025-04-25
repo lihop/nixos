@@ -1,14 +1,31 @@
-{ config, pkgs, ... }:
+{ config, lib, modulesPath, pkgs, ... }:
 
 {
-  imports = [ ../modules/home-manager.nix ];
-  home-manager.users.leroy = { pkgs, ... }: { };
+  # Common hardware settings.
+  boot.kernelPackages = pkgs.linuxPackages_6_14;
+  boot.loader.timeout = lib.mkForce 1;
+  boot.kernelParams = [
+    "delayacct" # Required by iotop.
+  ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+
+  nixpkgs.overlays = [
+    (self: super: {
+      bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: {
+        # Without this system kernel panics on boot.
+        # Issue introduced by: https://github.com/NixOS/nixpkgs/pull/398570.
+        installFlags = [
+          "PKGCONFIG_SERVICEDIR=$(out)/lib/systemd/system"
+          "PKGCONFIG_UDEVDIR=$(out)/lib/udev"
+        ];
+      });
+    })
+  ];
 
   nix.nixPath = [
     "nixpkgs=/etc/nixos/nixpkgs"
     "nixos-config=/etc/nixos/configuration.nix"
   ];
-  environment.etc.gitconfig.text = "[safe]\n\tdirectory = /home/leroy/nixos/nixpkgs\n";
 
   networking.nameservers = [
     "8.8.8.8"
@@ -45,7 +62,8 @@
   i18n = {
     defaultLocale = "en_NZ.UTF-8";
     inputMethod = {
-      enabled = "uim";
+      enable = true;
+      type = "uim";
     };
   };
 
@@ -58,9 +76,12 @@
 
   environment.systemPackages = with pkgs; [
     acpi
+    bcachefs-tools
     binutils
     borgbackup
     cacert
+    clevis
+    cryptsetup
     dnsutils
     (import ../pkgs/dotfiles.nix)
     entr
@@ -73,7 +94,9 @@
     iotop
     iperf
     inetutils
+    jdupes
     jq
+    keyutils
     killall
     linuxPackages.usbip
     lm_sensors
@@ -101,7 +124,7 @@
     vim
     wakelan
     wget
-    wtf
+    wtfutil
     unzip
     usbutils
     zip
@@ -112,7 +135,7 @@
   '';
 
   programs.ssh.startAgent = true;
-  programs.bash.enableCompletion = true;
+  programs.bash.completion.enable = true;
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
@@ -131,19 +154,13 @@
   };
 
   nix.extraOptions = ''
-    auto-optimise-store = true
+    auto-optimise-store = false
+    ignored-acls = security.csm security.selinux system.nfs4_acl bcachefs_effective.data_replicas
   '';
 
   nix.settings = {
     cores = 0;
-    sandbox = true;
+    sandbox = false;
     experimental-features = [ "nix-command" "flakes" ];
-  };
-
-  # Add acces to the Nix User Repository (NUR) https://github.com/nix-community/NUR
-  nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      inherit pkgs;
-    };
   };
 }
