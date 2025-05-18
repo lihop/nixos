@@ -1,0 +1,99 @@
+{ pkgs, ... }:
+
+{
+  imports = [ ./xmonad ];
+
+  environment.systemPackages = with pkgs; [
+    acpi
+    asciinema
+    bfg-repo-cleaner
+    dmenu
+    exiftool
+    evince
+    feh
+    figlet
+    firefox
+    gcolor3
+    git-secrets
+    gparted
+    gnumake
+    haskellPackages.xmobar
+    imagemagick
+    joplin-desktop
+    kitty
+    lightlocker
+    moreutils
+    mupdf
+    ncurses
+    neofetch
+    ntfsprogs
+    pavucontrol
+    pdftk
+    portfolio
+    peek
+    python3
+    scrcpy
+    scrot
+    spotify
+    jmtpfs
+    (mutt.override { gpgmeSupport = true; })
+    (pass.override { x11Support = false; })
+    pinentry-curses
+    rclone
+    rxvt-unicode-unwrapped
+    smplayer
+    stow
+    toilet
+    transmission_4-gtk
+    unrar
+    vlc
+    xclip
+    xdotool
+    xorg.xev
+    xorg.xkill
+    xorg.xwininfo
+    yt-dlp
+  ];
+
+  users.extraUsers.leroy.extraGroups = [ "audio" ];
+
+  programs.gnupg.agent.enable = true;
+  programs.corectrl.enable = true;
+  programs.ssh.setXAuthLocation = true;
+
+  services.xserver = {
+    enable = true;
+    displayManager.lightdm.enable = true;
+    displayManager.sessionCommands = "light-locker --no-late-locking &";
+
+    displayManager.lightdm.extraSeatDefaults = ''
+      allow-guest=false
+      greeter-show-manual-login=true
+      greeter-hide-users=false
+      allow-multiple-sessions=true
+    '';
+
+    xkb = {
+      layout = "us";
+      variant = "dvp";
+
+      # Switch Right Alt (Alt_R) to act as ISO_Level3_Shift (AltGr).
+      options = "lv3:ralt_switch";
+    };
+  };
+
+  fonts = {
+    fontDir.enable = true;
+    enableGhostscriptFonts = true;
+    packages = with pkgs; [
+      aegyptus
+      dejavu_fonts
+      meslo-lg
+      nerd-fonts.meslo-lg
+      powerline-fonts
+      ubuntu_font_family
+    ];
+  };
+
+  services.logind.extraConfig = "RuntimeDirectorySize=4G";
+}

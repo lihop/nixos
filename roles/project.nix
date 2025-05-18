@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs.adb.enable = true;
@@ -6,23 +6,21 @@
 
   environment.systemPackages = with pkgs; [
     awscli
+    blender
     cargo
     cmake
     d-spy
+    dmg2img
     docker-compose
-    dotnetCorePackages.sdk_6_0
-    dotnetPackages.Nuget
     doxygen
     edb
     fastlane
     gd
     gitlab-runner
     gitAndTools.git-filter-repo
-    godot3
-    (godot_4.overrideAttrs (oldAttrs: {
-      sconsFlags = oldAttrs.sconsFlags ++ [ "debug_symbols=yes" ];
-    }))
+    godot_4
     python3Packages.grip
+    python3Packages.myst-parser
     python3Packages.pip
     python3Packages.sphinx
     python3Packages.sphinx_rtd_theme
@@ -52,33 +50,19 @@
     rustc
     slack
     sqlite
-    terraform.full
-    vagrant
     valgrind
-    virt-viewer
     yarn
     clang
     clang-tools
     dbus
     ganttproject-bin
     plantuml
+    qemu
     cypress
     scons
     travis
     xvfb-run
   ];
-
-  home-manager.users.leroy = { pkgs, ... }: {
-    home.sessionVariables = {
-      SCONS_CACHE = "$HOME/.cache/scons-cache";
-      EM_CACHE = "$HOME/.cache/em-cache";
-    };
-
-    programs.vscode = {
-      enable = true;
-      package = pkgs.vscode.fhs;
-    };
-  };
 
   # Needed to store VSCode auth token.
   services.gnome.gnome-keyring.enable = true;
@@ -90,4 +74,6 @@
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+
+  boot.kernelModules = [ "kvm-intel" ];
 }
