@@ -58,6 +58,17 @@
     enable = true;
     userName = "Leroy Hopson";
     userEmail = "git@leroy.nix.nz";
+    signing = {
+      key = "CB4E7DEE";
+      signByDefault = true;
+    };
+
+    extraConfig = {
+      core.editor = "vim";
+      push.default = "simple";
+      diff.noprefix = false;
+      http.postBuffer = 524288000;
+    };
   };
 
   programs.home-manager.enable = true;
