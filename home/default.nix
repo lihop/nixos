@@ -1,5 +1,12 @@
 { config, lib, pkgs, ... }:
-
+let
+  xresourcesThemes = pkgs.fetchFromGitHub {
+    owner = "MicahSnell";
+    repo = "Xresources-themes";
+    rev = "0826647c65bd91cfd434eeeedd82f38933ab852e";
+    sha256 = "sha256-bP4W9C5rjOKfni4MnGl5trGbzeEtSvjMRHKisKJix8o=";
+  };
+in
 {
   home = {
     username = "leroy";
@@ -44,13 +51,9 @@
     initExtra = ''
       set -o vi
   
-      # Choose a random color scheme
-      # Note: because dotfiles are being handled by stow Xcolors and
-      # Xresources are symbolic links, so they need to be handled
-      # accordingly when invoking the find and sed commands.
-      colorscheme=$(${findutils}/bin/find -L ~/.Xcolors | ${coreutils}/bin/shuf -n 1)
-      ${gnused}/bin/sed -i --follow-symlinks "1s|.*|#include \"''${colorscheme}\"|g" ~/.Xresources
-      ${xorg.xrdb}/bin/xrdb -merge ~/.Xresources
+      # Choose a random terminal color scheme.
+      colorscheme=$(${findutils}/bin/find -L ${xresourcesThemes} -name '*.Xresources' | ${coreutils}/bin/shuf -n 1)
+      ${xorg.xrdb}/bin/xrdb -merge $colorscheme
     '';
   };
 
@@ -89,4 +92,12 @@
   };
 
   services.dunst.enable = false;
+
+  xresources.properties = {
+    "URxvt.dynamicColors" = true;
+    "URxvt.scrollBar" = false;
+    "URxvt.saveLines" = 8192;
+    "URxvt.font" = "xft:MesloLGS Nerd Font Mono:pixelsize=14:antialias=true";
+    "URxvt.boldFont" = "xft:MesloLGS Nerd Font Mono:style=Bold:pixelsize=14:antialias=true";
+  };
 }
