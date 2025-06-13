@@ -73,7 +73,6 @@
   environment.variables.LIBCLANG_PATH = "${pkgs.llvmPackages.libclang}/lib";
 
   hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
 
   boot.kernelModules = [ "kvm-intel" ];
 }

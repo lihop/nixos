@@ -67,6 +67,13 @@
       FastConnectable = true;
     };
   };
+  home-manager.users.leroy = { ... }: {
+    services.blueman-applet.enable = true;
+    dconf.settings."org/blueman/general" = {
+      # Disable excessive notifications.
+      plugin-list = [ "!ConnectionNotifier" ];
+    };
+  };
 
   users.users.leroy.extraGroups = [ "transmission" ];
   systemd.tmpfiles.rules = [
