@@ -89,6 +89,7 @@
       download-queue-enabled = false;
       alt-speed-down = 2000;
       alt-speed-up = 500;
+      ratio-limit-enabled = true;
     };
   };
 }
