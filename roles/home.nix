@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ fontSize ? 14, pkgs, user, ... }:
 let
   xresourcesThemes = pkgs.fetchFromGitHub {
     owner = "MicahSnell";
@@ -98,8 +98,8 @@ in
       "URxvt.dynamicColors" = true;
       "URxvt.scrollBar" = false;
       "URxvt.saveLines" = 8192;
-      "URxvt.font" = "xft:MesloLGS Nerd Font Mono:pixelsize=14:antialias=true";
-      "URxvt.boldFont" = "xft:MesloLGS Nerd Font Mono:style=Bold:pixelsize=16:antialias=true";
+      "URxvt.font" = "xft:MesloLGS Nerd Font Mono:pixelsize=${toString fontSize}:antialias=true";
+      "URxvt.boldFont" = "xft:MesloLGS Nerd Font Mono:style=Bold:pixelsize=${toString fontSize}:antialias=true";
     };
   };
 }

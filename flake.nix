@@ -28,6 +28,7 @@
       commonConfig = {
         specialArgs = {
           inherit inputs;
+          fontSize = 14;
           user = { name = "leroy"; fullName = "Leroy Hopson"; };
         };
         modules = [
@@ -47,6 +48,7 @@
       nixosConfigurations.scout = nixpkgs.lib.nixosSystem (commonConfig // {
         system = "x86_64-linux";
         modules = commonConfig.modules ++ [ ./hosts/scout.nix ];
+        specialArgs = commonConfig.specialArgs // { fontSize = 16; };
       });
     };
 }
