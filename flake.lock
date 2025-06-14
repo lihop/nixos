@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749657191,
-        "narHash": "sha256-QLilaHuhGxiwhgceDWESj9gFcKIdEp7+9lRqNGpN8S4=",
+        "lastModified": 1749821119,
+        "narHash": "sha256-X3WAS322EsebI4ohJcXhKpiyG1v+7wE4VOiXy1pxM/c=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "faeab32528a9360e9577ff4082de2d35c6bbe1ce",
+        "rev": "79dfd9aa295e53773aad45480b44c131da29f35b",
         "type": "github"
       },
       "original": {
@@ -60,7 +60,21 @@
       "inputs": {
         "NixVirt": "NixVirt",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "secrets": "secrets"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1749872157,
+        "narHash": "sha256-pnYVSJXjwIROJdMGcrUSNjWaMog5Sji4a9i+wqY8ksI=",
+        "path": "/home/leroy/nixos/secrets",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/leroy/nixos/secrets",
+        "type": "path"
       }
     }
   },

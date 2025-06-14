@@ -31,7 +31,6 @@
     gcc
     gimp
     gnuradio
-    google-chrome
     gqrx
     hfsprogs
     inkscape
@@ -74,7 +73,7 @@
   ];
 
   # Add user to all applicable groups.
-  users.users.leroy.extraGroups = [ "audio" "docker" "plugdev" "usb" ];
+  users.users.leroy.extraGroups = [ "audio" "plugdev" "usb" ];
   users.groups.plugdev = { };
 
   # RTLSDR.

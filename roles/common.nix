@@ -1,13 +1,14 @@
 { config, lib, modulesPath, pkgs, ... }:
 
 {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+
   # Common hardware settings.
   boot.kernelPackages = pkgs.linuxPackages_6_15;
   boot.loader.timeout = lib.mkForce 1;
   boot.kernelParams = [
     "delayacct" # Required by iotop.
   ];
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   nixpkgs.overlays = [
     (self: super: {

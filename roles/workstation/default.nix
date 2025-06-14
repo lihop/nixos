@@ -15,6 +15,7 @@
     firefox
     gcolor3
     git-secrets
+    google-chrome
     gparted
     gnumake
     haskellPackages.xmobar

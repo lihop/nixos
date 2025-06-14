@@ -2,11 +2,15 @@
 
 {
   programs.adb.enable = true;
-  users.users.leroy.extraGroups = [ "adbusers" ];
+
+  users.users.leroy.extraGroups = [ "adbusers" "docker" ];
 
   environment.systemPackages = with pkgs; [
     awscli
+    awslogs
     blender
+    brakeman
+    cachix
     cargo
     cmake
     d-spy
@@ -37,10 +41,12 @@
     libguestfs
     libimobiledevice
     mariadb-client
+    minio
     minio-client
     ncurses.dev
     nodejs_20
     nodePackages.node2nix
+    peek
     pkg-config
     pre-commit
     react-native-debugger
@@ -76,4 +82,6 @@
   hardware.bluetooth.enable = true;
 
   boot.kernelModules = [ "kvm-intel" ];
+
+  virtualisation.docker.enable = true;
 }
