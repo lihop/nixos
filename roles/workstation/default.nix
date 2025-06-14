@@ -5,8 +5,10 @@
 
   environment.systemPackages = with pkgs; [
     acpi
+    alsa-utils
     asciinema
     bfg-repo-cleaner
+    brightnessctl
     dmenu
     exiftool
     evince

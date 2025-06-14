@@ -33,7 +33,6 @@
     gnuradio
     gqrx
     hfsprogs
-    inkscape
     jp2a
     krita
     libreoffice
