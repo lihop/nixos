@@ -63,13 +63,6 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/root";
     fsType = "bcachefs";
-    options = [
-      "fix_errors"
-      "prjquota"
-      "usrquota"
-      "grpquota"
-      "version_upgrade=incompatible"
-    ];
   };
   swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
   services.snapper = {

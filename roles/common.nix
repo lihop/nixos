@@ -10,19 +10,6 @@
     "delayacct" # Required by iotop.
   ];
 
-  nixpkgs.overlays = [
-    (self: super: {
-      bcachefs-tools = super.bcachefs-tools.overrideAttrs (oldAttrs: {
-        # Without this system kernel panics on boot.
-        # Issue introduced by: https://github.com/NixOS/nixpkgs/pull/398570.
-        installFlags = [
-          "PKGCONFIG_SERVICEDIR=$(out)/lib/systemd/system"
-          "PKGCONFIG_UDEVDIR=$(out)/lib/udev"
-        ];
-      });
-    })
-  ];
-
   nix.nixPath = [
     "nixpkgs=/etc/nixos/nixpkgs"
     "nixos-config=/etc/nixos/configuration.nix"
