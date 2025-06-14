@@ -1,10 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, ... }:
 
 {
   networking.hostName = "heavy";
 
   imports = [
     ../roles/common.nix
+    ../roles/home.nix
     ../roles/home-network.nix
     ../roles/workstation
     ../roles/workstation-extra.nix
@@ -34,11 +35,11 @@
 
   deduplication = {
     enable = false;
-    paths = [ /etc /home/leroy /media /root /var ];
+    paths = [ /etc /home/${user.name} /media /root /var ];
   };
 
   environment.etc = {
-    "projects".text = "1:/home/leroy/important";
+    "projects".text = "1:/home/${user.name}/important";
     "projid".text = "important:1";
   };
 
@@ -88,9 +89,9 @@
   services.borgbackup.jobs.borgbase = {
     compression = "auto,lzma";
     encryption.mode = "repokey-blake2";
-    encryption.passCommand = "cat /home/leroy/important/passphrase";
-    environment.BORG_RSH = "ssh -oBatchMode=yes -i /home/leroy/.ssh/borg_rsa";
-    paths = [ "/home/leroy/important" ];
+    encryption.passCommand = "cat /home/${user.name}/important/passphrase";
+    environment.BORG_RSH = "ssh -oBatchMode=yes -i /home/${user.name}/.ssh/borg_rsa";
+    paths = [ "/home/${user.name}/important" ];
     repo = "yjr2w9pc@yjr2w9pc.repo.borgbase.com:repo";
     startAt = "daily";
   };
@@ -107,7 +108,7 @@
   # documentation for this option (e.g. man configuration.nix or on
   # https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-  home-manager.users.leroy = { ... }: {
+  home-manager.users.${user.name} = { ... }: {
     home.stateVersion = "24.11";
   };
 }

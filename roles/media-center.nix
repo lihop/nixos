@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, user, ... }:
 
 {
   services.xserver = {
@@ -67,7 +67,7 @@
       FastConnectable = true;
     };
   };
-  home-manager.users.leroy = { ... }: {
+  home-manager.users.${user.name} = { ... }: {
     services.blueman-applet.enable = true;
     dconf.settings."org/blueman/general" = {
       # Disable excessive notifications.
@@ -75,7 +75,7 @@
     };
   };
 
-  users.users.leroy.extraGroups = [ "transmission" ];
+  users.users.${user.name}.extraGroups = [ "transmission" ];
   systemd.tmpfiles.rules = [
     "d /media/transmission/movies 2770 transmission transmission -"
     "d /media/transmission/tv 2770 transmission transmission -"

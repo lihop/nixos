@@ -24,41 +24,29 @@
   };
 
   outputs = inputs@{ nixpkgs, home-manager, NixVirt, ... }:
+    let
+      commonConfig = {
+        specialArgs = {
+          inherit inputs;
+          user = { name = "leroy"; fullName = "Leroy Hopson"; };
+        };
+        modules = [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+          }
+        ];
+      };
+    in
     {
-      nixosConfigurations.heavy = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          username = "leroy";
-        };
+      nixosConfigurations.heavy = nixpkgs.lib.nixosSystem (commonConfig // {
         system = "x86_64-linux";
-        modules = [
-          ./hosts/heavy.nix
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.leroy = import ./home;
-          }
-        ];
-      };
-      nixosConfigurations.scout = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          username = "leroy";
-        };
+        modules = commonConfig.modules ++ [ ./hosts/heavy.nix ];
+      });
+      nixosConfigurations.scout = nixpkgs.lib.nixosSystem (commonConfig // {
         system = "x86_64-linux";
-        modules = [
-          ./hosts/scout.nix
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.leroy = import ./home;
-          }
-        ];
-      };
-
+        modules = commonConfig.modules ++ [ ./hosts/scout.nix ];
+      });
     };
 }

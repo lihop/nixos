@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, pkgs, user, ... }:
 
 {
   programs.steam = {
@@ -73,7 +73,7 @@
   ];
 
   # Add user to all applicable groups.
-  users.users.leroy.extraGroups = [ "audio" "plugdev" "usb" ];
+  users.users.${user.name}.extraGroups = [ "audio" "plugdev" "usb" ];
   users.groups.plugdev = { };
 
   # RTLSDR.

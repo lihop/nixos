@@ -1,4 +1,4 @@
-{ username, ... }:
+{ user, ... }:
 
 {
   services.displayManager.defaultSession = "none+xmonad";
@@ -9,7 +9,7 @@
     windowManager.xmonad.enableContribAndExtras = true;
   };
 
-  home-manager.users.${username} = { lib, osConfig, pkgs, ... }: {
+  home-manager.users.${user.name} = { lib, osConfig, pkgs, ... }: {
     xsession.enable = true;
 
     xsession.windowManager.xmonad = {

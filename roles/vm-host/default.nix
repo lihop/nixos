@@ -1,7 +1,7 @@
-{ config, inputs, pkgs, username, ... }:
+{ config, inputs, pkgs, user, ... }:
 let
   nixVirt = inputs.NixVirt;
-  vmDir = "/home/leroy/vms";
+  vmDir = "/home/${user.name}/vms";
 in
 {
   imports = [ nixVirt.nixosModules.default ];
@@ -16,7 +16,7 @@ in
     blacklist i915
   '';
 
-  users.users.leroy.extraGroups = [ "kvm" "libvirtd" "qemu-libvirtd" ];
+  users.users.${user.name}.extraGroups = [ "kvm" "libvirtd" "qemu-libvirtd" ];
 
   virtualisation.libvirt.enable = true;
   virtualisation.libvirtd.enable = true;
@@ -31,7 +31,7 @@ in
     }
   ];
 
-  home-manager.users.leroy = { config, lib, osConfig, pkgs, ... }: {
+  home-manager.users.${user.name} = { config, lib, osConfig, pkgs, ... }: {
     home.activation."create-nvram-files" = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
       [ -f ${vmDir}/windows/win11.nvram ] || install --mode 0644 -D ${pkgs.OVMFFull.fd}/FV/OVMF_VARS.ms.fd ${vmDir}/windows/win11.nvram
     '';

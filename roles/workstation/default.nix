@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 
 {
   imports = [ ./xmonad ];
@@ -56,7 +56,7 @@
     yt-dlp
   ];
 
-  users.extraUsers.leroy.extraGroups = [ "audio" ];
+  users.extraUsers.${user.name}.extraGroups = [ "audio" ];
 
   programs.gnupg.agent.enable = true;
   programs.corectrl.enable = true;

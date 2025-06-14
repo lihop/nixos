@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, options, ... }:
+{ config, pkgs, inputs, lib, options, user, ... }:
 let
   secretPath = "${inputs.secrets}/scout.nix";
   hasSecrets = builtins.pathExists "${inputs.secrets}/scout.nix";
@@ -8,6 +8,7 @@ in
 
   imports = [
     ../roles/common.nix
+    ../roles/home.nix
     ../roles/home-network.nix
     ../roles/workstation
     ../roles/project.nix
@@ -56,7 +57,7 @@ in
   # documentation for this option (e.g. man configuration.nix or on
   # https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-  home-manager.users.leroy = { ... }: {
+  home-manager.users.${user.name} = { ... }: {
     home.stateVersion = "23.11";
   };
 }

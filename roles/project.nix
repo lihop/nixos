@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 
 {
   programs.adb.enable = true;
 
-  users.users.leroy.extraGroups = [ "adbusers" "docker" ];
+  users.users.${user.name}.extraGroups = [ "adbusers" "docker" ];
 
   environment.systemPackages = with pkgs; [
     awscli

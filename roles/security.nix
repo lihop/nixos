@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -28,5 +28,5 @@
   ];
 
   programs.wireshark.enable = true;
-  users.extraUsers.leroy.extraGroups = [ "wireshark" ];
+  users.extraUsers.${user.name}.extraGroups = [ "wireshark" ];
 }
