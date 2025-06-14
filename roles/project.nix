@@ -15,6 +15,7 @@
     doxygen
     edb
     fastlane
+    figma-linux
     gd
     gitlab-runner
     gitAndTools.git-filter-repo
