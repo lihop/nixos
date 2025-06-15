@@ -58,6 +58,15 @@
     yt-dlp
   ];
 
+  # Audio.
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
   users.extraUsers.${user.name}.extraGroups = [ "audio" ];
 
   programs.gnupg.agent.enable = true;
