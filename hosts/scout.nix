@@ -13,7 +13,7 @@ in
     ../roles/workstation
     ../roles/project.nix
   ] ++ [
-    (import ../modules/battery-check.nix { inherit pkgs; threshold = 10; })
+    (import ../modules/battery-check.nix { inherit pkgs; threshold = 5; })
     ../modules/deduplication.nix
   ] ++ (if hasSecrets then [ secretPath ] else [ ]);
 
