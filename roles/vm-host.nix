@@ -10,7 +10,6 @@ in
   boot.extraModprobeConfig = ''
     options vfio-pci ids=10de:1201,10de:0e0c,8086:a780
     blacklist nouveau
-    blacklist snd_hda_intel
     blacklist snd_soc_avs
     blacklist snd_sof_pci_intel_tgl
     blacklist i915
