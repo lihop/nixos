@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749821119,
-        "narHash": "sha256-X3WAS322EsebI4ohJcXhKpiyG1v+7wE4VOiXy1pxM/c=",
+        "lastModified": 1750033262,
+        "narHash": "sha256-TcFN78w6kPspxpbPsxW/8vQ1GAtY8Y3mjBaC+oB8jo4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "79dfd9aa295e53773aad45480b44c131da29f35b",
+        "rev": "66523b0efe93ce5b0ba96dcddcda15d36673c1f0",
         "type": "github"
       },
       "original": {
@@ -44,10 +44,10 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1749701605,
-        "narHash": "sha256-y5B4NlQCOz/AUOkUWATcR7O0XJ6wsGMK3wz4wGME6n0=",
-        "rev": "3e851e278af144b1083f02dbb1e413efca58201e",
-        "revCount": 813794,
+        "lastModified": 1749794982,
+        "narHash": "sha256-Kh9K4taXbVuaLC0IL+9HcfvxsSUx8dPB5s5weJcc9pc=",
+        "rev": "ee930f9755f58096ac6e8ca94a1887e0534e2d81",
+        "revCount": 814309,
         "type": "git",
         "url": "file:///etc/nixos/nixpkgs?submodules=1"
       },
@@ -67,7 +67,7 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1749872157,
+        "lastModified": 1749872681,
         "narHash": "sha256-pnYVSJXjwIROJdMGcrUSNjWaMog5Sji4a9i+wqY8ksI=",
         "path": "/home/leroy/nixos/secrets",
         "type": "path"
