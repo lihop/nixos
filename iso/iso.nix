@@ -1,6 +1,8 @@
-{ modulesPath, pkgs, lib, ... }:
+{ lib, modulesPath, ... }:
 
 {
+  _module.args.user = { name = "nixos"; fullName = ""; };
+
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
     ../roles/common.nix
