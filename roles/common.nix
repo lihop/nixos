@@ -117,6 +117,7 @@
   '';
 
   programs.ssh.startAgent = true;
+  services.gnome.gcr-ssh-agent.enable = false; # Disable conflicting SSH agent.
   programs.bash.completion.enable = true;
 
   services.openssh.enable = true;
