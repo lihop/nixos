@@ -13,7 +13,9 @@
     cachix
     cargo
     cmake
+    codex
     d-spy
+    direnv
     dmg2img
     docker-compose
     doxygen
