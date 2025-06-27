@@ -16,6 +16,7 @@
     figlet
     firefox
     gcolor3
+    golden-cheetah
     git-secrets
     google-chrome
     gparted

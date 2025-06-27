@@ -37,6 +37,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
           }
+          (import ./overlays { inherit inputs; })
         ];
       };
     in

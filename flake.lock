@@ -67,8 +67,8 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1749872681,
-        "narHash": "sha256-pnYVSJXjwIROJdMGcrUSNjWaMog5Sji4a9i+wqY8ksI=",
+        "lastModified": 1751007908,
+        "narHash": "sha256-ghXhinO9Nh5O3ps73oGfNmzrCA0Frl9qOQ6tGjYnXoM=",
         "path": "/home/leroy/nixos/secrets",
         "type": "path"
       },
