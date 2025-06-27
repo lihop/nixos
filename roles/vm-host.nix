@@ -47,14 +47,6 @@ in
       };
       volumes = [
         {
-          present = false;
-          definition = nixVirt.lib.volume.writeXML {
-            name = "win10.raw";
-            capacity = { count = 64; unit = "GiB"; };
-            target.format.type = "raw";
-          };
-        }
-        {
           present = true;
           definition = nixVirt.lib.volume.writeXML {
             name = "win11.raw";
