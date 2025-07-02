@@ -12,6 +12,7 @@
     ../roles/project.nix
     ../roles/security.nix
     ../roles/media-center.nix
+    ../roles/terminal-fun.nix
     ../roles/vm-host.nix
   ] ++ [
     ../modules/deduplication.nix
