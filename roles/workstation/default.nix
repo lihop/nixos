@@ -1,5 +1,11 @@
 { pkgs, user, ... }:
-
+let
+  cursor = {
+    name = "phinger-cursors-dark";
+    package = pkgs.phinger-cursors;
+    size = 24;
+  };
+in
 {
   imports = [ ./xmonad ];
 
@@ -76,7 +82,10 @@
 
   services.xserver = {
     enable = true;
-    displayManager.lightdm.enable = true;
+    displayManager.lightdm = {
+      enable = true;
+      greeters.gtk.cursorTheme = cursor;
+    };
     displayManager.sessionCommands = "light-locker --no-late-locking &";
 
     displayManager.lightdm.extraSeatDefaults = ''
@@ -106,6 +115,11 @@
       powerline-fonts
       ubuntu_font_family
     ];
+  };
+
+  home-manager.users.${user.name}.home.pointerCursor = cursor // {
+    gtk.enable = true;
+    x11.enable = true;
   };
 
   services.logind.extraConfig = "RuntimeDirectorySize=4G";
