@@ -19,7 +19,6 @@
   ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "tpm_crb" ];
-  boot.initrd.kernelModules = [ "vfio" "vfio_pci" "vfio_iommu_type1" ];
   boot.initrd.supportedFilesystems = { bcachefs = true; };
   boot.kernelModules = [ "kvm-intel" "nct6683" ];
   boot.loader.efi.canTouchEfiVariables = true;
