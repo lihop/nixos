@@ -85,6 +85,14 @@ in
             target.format.type = "raw";
           };
         }
+        {
+          present = true;
+          definition = nixVirt.lib.volume.writeXML {
+            name = "win11-full.img";
+            capacity = { count = 80; unit = "GiB"; };
+            target.format.type = "raw";
+          };
+        }
       ];
     }
   ];
@@ -92,75 +100,92 @@ in
   home-manager.users.${user.name} = { config, lib, osConfig, pkgs, ... }: {
     home.activation."create-nvram-files" = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
       [ -f ${vmDir}/config/win11.nvram ] || install --mode 0644 -D ${pkgs.OVMFFull.fd}/FV/OVMF_VARS.ms.fd ${vmDir}/config/win11.nvram
+      [ -f ${vmDir}/config/win11-full.nvram ] || install --mode 0644 -D ${pkgs.OVMFFull.fd}/FV/OVMF_VARS.ms.fd ${vmDir}/config/win11-full.nvram
     '';
   };
-  virtualisation.libvirt.connections."qemu:///system".domains = [
-    {
-      active = false;
-      definition =
+  virtualisation.libvirt.connections."qemu:///system".domains =
+    let
+      mkWindowsVM = { name, uuid, volume, pciFunction, vcpus ? 2 }:
         let
-          baseDir = "${vmDir}/windows";
           baseXML = nixVirt.lib.domain.templates.windows {
-            name = "win11";
-            uuid = "c29f2546-2377-4e6b-9937-0c18520142fc";
+            inherit name uuid;
+            vcpu = { count = vcpus; };
             memory = { count = 8; unit = "GiB"; };
             install_virtio = true;
             install_vol = "${vmDir}/iso/Win11_24H2_EnglishInternational_x64.iso";
-            nvram_path = "${vmDir}/config/win11.nvram";
+            nvram_path = "${vmDir}/config/${name}.nvram";
             virtio_drive = true;
             virtio_net = true;
             virtio_video = false;
           };
         in
-        nixVirt.lib.domain.writeXML (
-          baseXML // {
-            features = {
-              acpi = { };
-              apic = { };
-              hyperv = {
-                mode = "custom";
-                relaxed.state = true;
-                vapic.state = true;
-                spinlocks = { state = true; retries = 8191; };
-                vendor_id = { state = true; value = "GenuineIntel"; };
+        {
+          active = false;
+          definition = nixVirt.lib.domain.writeXML (
+            baseXML // {
+              features = {
+                acpi = { };
+                apic = { };
+                hyperv = {
+                  mode = "custom";
+                  relaxed.state = true;
+                  vapic.state = true;
+                  spinlocks = { state = true; retries = 8191; };
+                  vendor_id = { state = true; value = "GenuineIntel"; };
+                };
+                vmport.state = false;
+                kvm.hidden.state = true;
+                ioapic = { driver = "kvm"; };
               };
-              vmport.state = false;
-              kvm.hidden.state = true;
-              ioapic = { driver = "kvm"; };
-            };
-            memoryBacking = { source.type = "memfd"; access.mode = "shared"; };
-            devices = baseXML.devices // {
-              disk = baseXML.devices.disk ++ [
-                {
-                  type = "volume";
-                  device = "disk";
-                  driver = { name = "qemu"; type = "raw"; };
-                  source = { pool = "default"; volume = "win11.img"; };
-                  target = { dev = "vda"; bus = "virtio"; };
-                  address = { type = "pci"; bus = 4; };
-                }
-              ];
-              filesystem = [
-                {
-                  type = "mount";
-                  accessmode = "passthrough";
-                  binary = { path = "${pkgs.virtiofsd}/bin/virtiofsd"; };
-                  driver = { type = "virtiofs"; };
-                  source = { dir = "${vmDir}/shared"; };
-                  target = { dir = "mount_shared"; };
-                }
-              ];
-              hostdev = [
-                {
-                  type = "pci";
-                  managed = true;
-                  source.address = { slot = 2; function = 1; };
-                  address = { type = "pci"; bus = 8; };
-                }
-              ];
-            };
-          }
-        );
-    }
-  ];
+              memoryBacking = { source.type = "memfd"; access.mode = "shared"; };
+              devices = baseXML.devices // {
+                disk = baseXML.devices.disk ++ [
+                  {
+                    type = "volume";
+                    device = "disk";
+                    driver = { name = "qemu"; type = "raw"; };
+                    source = { pool = "default"; inherit volume; };
+                    target = { dev = "vda"; bus = "virtio"; };
+                    address = { type = "pci"; bus = 4; };
+                  }
+                ];
+                filesystem = [
+                  {
+                    type = "mount";
+                    accessmode = "passthrough";
+                    binary = { path = "${pkgs.virtiofsd}/bin/virtiofsd"; };
+                    driver = { type = "virtiofs"; };
+                    source = { dir = "${vmDir}/shared"; };
+                    target = { dir = "mount_shared"; };
+                  }
+                ];
+                hostdev = [
+                  {
+                    type = "pci";
+                    managed = true;
+                    source.address = { slot = 2; function = pciFunction; };
+                    address = { type = "pci"; bus = 8; };
+                  }
+                ];
+              };
+            }
+          );
+        };
+    in
+    [
+      (mkWindowsVM {
+        name = "win11";
+        uuid = "c29f2546-2377-4e6b-9937-0c18520142fc";
+        volume = "win11.img";
+        pciFunction = 1;
+        vcpus = 2;
+      })
+      (mkWindowsVM {
+        name = "win11-full";
+        uuid = "a29f2546-2377-4e6b-9937-0c18520142fd";
+        volume = "win11-full.img";
+        pciFunction = 2;
+        vcpus = 10;
+      })
+    ];
 }
