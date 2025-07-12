@@ -46,7 +46,10 @@
   [
     kodiWrapped
     libcec
+    libva-utils
     mediainfo
+    read-edid
+    vdpauinfo
     wmctrl
   ];
 
