@@ -1,4 +1,4 @@
-{ lib, modulesPath, ... }:
+{ lib, modulesPath, pkgs, ... }:
 
 {
   _module.args.user = { name = "nixos"; fullName = ""; };
@@ -8,9 +8,8 @@
     ../roles/common.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_testing;
+
   # Disable broken ZFS filesystem support.
   boot.supportedFilesystems.zfs = lib.mkForce false;
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = true;
 }
