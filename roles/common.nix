@@ -1,10 +1,10 @@
-{ config, lib, modulesPath, pkgs, user, ... }:
+{ config, kernelPackages, lib, modulesPath, pkgs, user, ... }:
 
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   # Common hardware settings.
-  boot.kernelPackages = pkgs.linuxPackages_6_15;
+  boot.kernelPackages = lib.mkDefault kernelPackages;
   boot.loader.timeout = lib.mkForce 1;
   boot.kernelParams = [
     "delayacct" # Required by iotop.

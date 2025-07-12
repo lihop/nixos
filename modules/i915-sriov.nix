@@ -1,5 +1,5 @@
 # Based on Vadika's NixOS config: https://github.com/vadika/nixos-config.
-{ config, lib, pkgs, ... }:
+{ config, kernelPackages, lib, pkgs, ... }:
 
 with lib;
 
@@ -67,7 +67,7 @@ in
 
     kernel = mkOption {
       type = types.package;
-      default = pkgs.linux_6_15;
+      default = kernelPackages.kernel;
       description = "The kernel package to use.";
     };
   };

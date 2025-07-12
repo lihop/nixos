@@ -25,10 +25,17 @@
 
   outputs = inputs@{ nixpkgs, home-manager, NixVirt, ... }:
     let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
       commonConfig = {
+        system = system;
         specialArgs = {
           inherit inputs;
           fontSize = 14;
+          kernelPackages = pkgs.linuxPackages_6_15;
           user = { name = "leroy"; fullName = "Leroy Hopson"; };
         };
         modules = [
@@ -43,11 +50,9 @@
     in
     {
       nixosConfigurations.heavy = nixpkgs.lib.nixosSystem (commonConfig // {
-        system = "x86_64-linux";
         modules = commonConfig.modules ++ [ ./hosts/heavy.nix ];
       });
       nixosConfigurations.scout = nixpkgs.lib.nixosSystem (commonConfig // {
-        system = "x86_64-linux";
         modules = commonConfig.modules ++ [ ./hosts/scout.nix ];
         specialArgs = commonConfig.specialArgs // { fontSize = 16; };
       });
