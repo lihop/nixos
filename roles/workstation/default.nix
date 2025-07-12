@@ -31,6 +31,7 @@ in
     imagemagick
     joplin-desktop
     kitty
+    libreoffice
     lightlocker
     moreutils
     mupdf

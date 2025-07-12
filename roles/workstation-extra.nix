@@ -35,7 +35,6 @@
     hfsprogs
     jp2a
     krita
-    libreoffice
     looking-glass-client
     pandoc
     scrcpy
