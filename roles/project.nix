@@ -12,6 +12,7 @@
     brakeman
     cachix
     cargo
+    claude-code
     cmake
     codex
     d-spy
