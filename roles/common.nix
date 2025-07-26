@@ -49,13 +49,6 @@
 
   i18n.defaultLocale = "en_NZ.UTF-8";
 
-  # Currently encountering some ipv6 issues when updating NixOS.
-  # Workaround is to add DNS record for nixos cache.
-  # See: https://github.com/NixOS/nixpkgs/issues/65015
-  networking.extraHosts = ''
-    cache.nixos.org CNAME v2.shared.global.fastly.net.
-  '';
-
   environment.systemPackages = with pkgs; [
     acpi
     bcachefs-tools
