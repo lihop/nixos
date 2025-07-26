@@ -35,6 +35,10 @@ in
       });
     }
   ];
+  networking.firewall.interfaces."virbr0" = {
+    allowedUDPPorts = [ 53 67 68 ];
+    allowedTCPPorts = [ 53 ];
+  };
 
   # File sharing.
   users.users.dev = {
