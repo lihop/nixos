@@ -16,6 +16,7 @@
     ../roles/vm-host.nix
   ] ++ [
     ../modules/deduplication.nix
+    ../modules/lsyncd.nix
   ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "tpm_crb" ];
@@ -79,6 +80,18 @@
       TIMELINE_LIMIT_YEARLY = 0;
     };
   };
+  services.lsyncd =
+    let
+      backupDir = "/var/backup/home/${user.name}";
+    in
+    {
+      enable = true;
+      sync = [
+        { source = "/home/${user.name}/.gnupg"; target = "${backupDir}/.gnupg"; }
+        { source = "/home/${user.name}/.ssh"; target = "${backupDir}/.ssh"; }
+        { source = "/home/${user.name}/important"; target = "${backupDir}/important"; }
+      ];
+    };
   services.borgbackup.jobs.borgbase = {
     compression = "auto,lzma";
     encryption.mode = "repokey-blake2";
