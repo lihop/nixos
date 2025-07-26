@@ -9,6 +9,7 @@
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_6_15;
+  boot.kernelParams = [ "nomodeset" ];
 
   # Disable broken ZFS filesystem support.
   boot.supportedFilesystems.zfs = lib.mkForce false;
