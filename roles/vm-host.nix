@@ -127,6 +127,14 @@ in
           active = false;
           definition = nixVirt.lib.domain.writeXML (
             baseXML // {
+              cpu = {
+                mode = "host-passthrough";
+                topology = {
+                  sockets = 1;
+                  cores = vcpus;
+                  threads = 1;
+                };
+              };
               features = {
                 acpi = { };
                 apic = { };
