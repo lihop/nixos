@@ -69,9 +69,10 @@ in
 
       extraConfig = {
         core.editor = "vim";
-        push.default = "simple";
         diff.noprefix = false;
         http.postBuffer = 524288000;
+        push.default = "simple";
+        rerere.enabled = true;
       };
     };
 
