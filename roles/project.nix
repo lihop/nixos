@@ -24,6 +24,7 @@
     fastlane
     figma-linux
     gd
+    gh
     gitlab-runner
     gitAndTools.git-filter-repo
     godot_4
@@ -42,6 +43,7 @@
     kubectx
     kubernetes-helm
     kustomize
+    libclang.python
     libguestfs
     libimobiledevice
     mariadb-client
@@ -88,6 +90,8 @@
   boot.kernelModules = [ "kvm-intel" ];
 
   virtualisation.docker.enable = true;
+
+  programs.nix-ld.enable = true;
 
   home-manager.users.${user.name} = {
     programs.vscode = {

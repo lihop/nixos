@@ -78,6 +78,7 @@
     mtr
     ncdu
     nethogs
+    net-tools
     nix-index
     nix-output-monitor
     nixpkgs-fmt
