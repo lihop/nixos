@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # Distributed NixOS builds.
@@ -51,4 +51,12 @@
       workstation = true;
     };
   };
+
+  networking.hosts = {
+    "192.168.1.126" = [ "medic.local" ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    wakeonlan
+  ];
 }

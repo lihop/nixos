@@ -12,7 +12,7 @@ in
 
   hardware.i915-sriov = {
     enable = true;
-    numVFs = 3;
+    numVFs = 2;
   };
 
   virtualisation = {
@@ -78,13 +78,13 @@ in
         name = "default";
         uuid = "5f1cd56b-7c91-4632-acfc-3a843c44cbf2";
         type = "dir";
-        target = { path = "/var/lib/libvirt/images"; };
+        target = { path = "${vmDir}/images"; }; # NEW LOCATION: /home/leroy/vms/images
       };
       volumes = [
         {
           present = true;
           definition = nixVirt.lib.volume.writeXML {
-            name = "win11.img";
+            name = "win11.raw";
             capacity = { count = 80; unit = "GiB"; };
             target.format.type = "raw";
           };
@@ -92,7 +92,7 @@ in
         {
           present = true;
           definition = nixVirt.lib.volume.writeXML {
-            name = "win11-full.img";
+            name = "win11-full.raw";
             capacity = { count = 80; unit = "GiB"; };
             target.format.type = "raw";
           };
@@ -109,7 +109,7 @@ in
   };
   virtualisation.libvirt.connections."qemu:///system".domains =
     let
-      mkWindowsVM = { name, uuid, volume, pciFunction, vcpus ? 2 }:
+      mkWindowsVM = { name, uuid, volume, pciFunction ? null, vcpus ? 8 }:
         let
           baseXML = nixVirt.lib.domain.templates.windows {
             inherit name uuid;
@@ -131,8 +131,8 @@ in
                 mode = "host-passthrough";
                 topology = {
                   sockets = 1;
-                  cores = vcpus;
-                  threads = 1;
+                  cores = vcpus / 2;
+                  threads = 2;
                 };
               };
               features = {
@@ -155,7 +155,7 @@ in
                   {
                     type = "volume";
                     device = "disk";
-                    driver = { name = "qemu"; type = "raw"; };
+                    driver = { name = "qemu"; type = "raw"; cache = "writeback"; io = "threads"; };
                     source = { pool = "default"; inherit volume; };
                     target = { dev = "vda"; bus = "virtio"; };
                     address = { type = "pci"; bus = 4; };
@@ -171,6 +171,7 @@ in
                     target = { dir = "mount_shared"; };
                   }
                 ];
+              } // lib.optionalAttrs (pciFunction != null) {
                 hostdev = [
                   {
                     type = "pci";
@@ -187,17 +188,17 @@ in
     [
       (mkWindowsVM {
         name = "win11";
-        uuid = "c29f2546-2377-4e6b-9937-0c18520142fc";
-        volume = "win11.img";
+        uuid = "c29f2546-2377-4e6b-9937-0c18620142fc";
+        volume = "win11.raw";
         pciFunction = 1;
-        vcpus = 2;
+        vcpus = 8;
       })
       (mkWindowsVM {
         name = "win11-full";
-        uuid = "a29f2546-2377-4e6b-9937-0c18520142fd";
-        volume = "win11-full.img";
+        uuid = "c29f2546-2377-4e6b-9937-0c18520142fc";
+        volume = "win11-full.raw";
         pciFunction = 2;
-        vcpus = 10;
+        vcpus = 8;
       })
     ];
 }

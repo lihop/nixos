@@ -18,13 +18,13 @@ let
     ({ stdenv, kernel }:
       stdenv.mkDerivation rec {
         pname = "i915-sriov-dkms";
-        version = "2025.05.18";
+        version = "2025.12.10";
 
         src = pkgs.fetchFromGitHub {
           owner = "strongtz";
           repo = "i915-sriov-dkms";
           rev = version;
-          sha256 = "sha256-AMwYBAQvY6QYvRQ9aEPqUWhCr38DYgZySopFbDnuqUw=";
+          sha256 = "sha256-0ScqO5ADh2f9qsvlNixiOk0rflDehNW1LVzcN96SGBo=";
         };
 
         nativeBuildInputs = kernel.moduleBuildDependencies ++ [ pkgs.xz ];
@@ -35,15 +35,15 @@ let
         ];
 
         buildPhase = ''
-          make -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build \
+          make -j$NIX_BUILD_CORES -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build \
             M=$(pwd) \
             KERNELRELEASE=${kernel.modDirVersion}
         '';
 
         installPhase = ''
           mkdir -p $out/lib/modules/${kernel.modDirVersion}/extra
-          ${pkgs.xz}/bin/xz -z -f i915.ko
-          cp i915.ko.xz $out/lib/modules/${kernel.modDirVersion}/extra/i915-sriov.ko.xz
+          ${pkgs.xz}/bin/xz -z -f drivers/gpu/drm/i915/i915.ko
+          cp drivers/gpu/drm/i915/i915.ko.xz $out/lib/modules/${kernel.modDirVersion}/extra/i915-sriov.ko.xz
         '';
 
         meta = with lib; {
@@ -78,17 +78,18 @@ in
 
     boot.blacklistedKernelModules = [ "i915" "xe" ];
 
-    boot.kernelModules = [ "i915-sriov" "mei_pxp" ];
     boot.initrd.kernelModules = [ "i915-sriov" ];
 
     boot.kernelParams = [
       "intel_iommu=on"
       "i915.enable_guc=3"
+      "i915.enable_dc=0"
+      "i915.enable_psr=0"
     ];
 
     boot.extraModprobeConfig = ''
       alias i915 i915-sriov
-      options i915-sriov enable_guc=3 max_vfs=${toString cfg.numVFs}
+      options i915-sriov enable_guc=3 max_vfs=${toString cfg.numVFs} enable_dc=0 enable_psr=0
       softdep i915-sriov post: mei_pxp
     '';
 

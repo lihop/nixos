@@ -1,0 +1,118 @@
+--- a/script.steam.launcher/resources/scripts/steam-launcher.sh
++++ b/script.steam.launcher/resources/scripts/steam-launcher.sh
+@@ -73,6 +73,30 @@
+     Linux)
+ #
+ KODI_BIN=$(ps aux | grep -E 'kodi.bin|kodi-x11|kodi-wayland|kodi-gbm' | grep -v 'grep.*kodi' | head -n1 | awk '{print $11}' | sed 's:.*/::')
++
++# Hyprland helper functions (compatible drop-in replacements for wmctrl/xdotool)
++get_steam_bpm_addr() {
++    hyprctl clients -j 2>/dev/null | jq -r '.[] | select(.title | test("Steam Big Picture Mode"; "i")) | .address' 2>/dev/null | head -n1
++}
++
++get_steam_desktop_addr() {
++    hyprctl clients -j 2>/dev/null | jq -r '.[] | select((.class | test("steam"; "i")) and (.title | test("^Steam$|^$"; "i"))) | .address' 2>/dev/null | head -n1
++}
++
++get_kodi_addr() {
++    hyprctl clients -j 2>/dev/null | jq -r '.[] | select(.class | test("^kodi$"; "i")) | .address' 2>/dev/null | head -n1
++}
++
++focus_window() {
++    [[ -n "$1" ]] && hyprctl dispatch focuswindow "address:$1" >/dev/null 2>&1
++}
++
++fullscreen_window() {
++    [[ -n "$1" ]] && focus_window "$1" && hyprctl dispatch fullscreen 1 >/dev/null 2>&1
++}
++
++minimize_window() {
++    [[ -n "$1" ]] && hyprctl dispatch movetoworkspacesilent "special:kodi,address:$1" >/dev/null 2>&1
++}
+ echo $l kodi executable is $KODI_BIN
+ #pre script
+ if [[ $5 != false ]] ; then
+@@ -93,15 +117,18 @@
+
+ #check if steam is running and launch or focus steam
+ if [[ $(pidof steam) ]] ; then
+-    if [[ $(wmctrl -lpx | grep 'steamwebhelper.*Steam Big Picture Mode' | head -n1) ]] ; then
++    STEAM_BPM_ADDR=$(get_steam_bpm_addr)
++    if [[ -n "$STEAM_BPM_ADDR" ]] ; then
+         echo $l steam bpm is already open - focusing
+-        wmctrl -i -a $(wmctrl -lpx | grep 'steamwebhelper.*Steam Big Picture Mode' | head -n1 | awk '{print $1}') &
++        focus_window "$STEAM_BPM_ADDR" &
+     elif [[ $9 = true ]] ; then
+         echo $l steam is already running - focusing desktop mode
+-        wmctrl -i -a $(wmctrl -lpx | grep '0 0.*Steam.Steam.*N/A N/A' | head -n1 | awk '{print $1}')
+-        wmctrl -i -r $(wmctrl -lpx | grep '0 0.*Steam.Steam.*N/A N/A' | head -n1 | awk '{print $1}') -b add,fullscreen &
++        STEAM_DESKTOP_ADDR=$(get_steam_desktop_addr)
++        fullscreen_window "$STEAM_DESKTOP_ADDR" &
+     else
+         echo $l steam is running - switching to bpm
+         "$1" "$7" steam://open/bigpicture &
+@@ -117,11 +144,11 @@
+
+ #wait for steam to open
+ if [[ $9 = true ]] ; then
+-    until [[ $(wmctrl -lpx | grep '0 0.*Steam.Steam.*N/A N/A') ]] ; do
++    until [[ -n "$(get_steam_desktop_addr)" ]] ; do
+         echo $l steam window not deteced - looping
+         sleep 0.5
+     done
+ else
+-    until [[ $(wmctrl -lpx | grep 'steamwebhelper.*Steam Big Picture Mode') ]] ; do
++    until [[ -n "$(get_steam_bpm_addr)" ]] ; do
+         echo $l steam bpm window not deteced - looping
+         sleep 0.5
+     done
+@@ -138,10 +165,9 @@
+         fi
+     elif [[ $3 = 1 ]] ; then
+         echo $l minimising kodi
+-        #dont work with kodi + steam
+-        #wmctrl -i -r $(wmctrl -lp | grep '0 0.*Kodi$' | awk '{print $1}') -b remove,fullscreen
+-        #wmctrl -i -r $(wmctrl -lp | grep '0 0.*Kodi$' | awk '{print $1}') -b add,shaded
+-        #wmctrl -i -r $(wmctrl -lp | grep '0 0.*Kodi$' | awk '{print $1}') -b add,below
+-        xdotool windowminimize $(wmctrl -lpx | grep '0 0.*Kodi.Kodi.*Kodi' | head -n1 | awk '{print $1}')
++        KODI_ADDR=$(get_kodi_addr)
++        if [[ -n "$KODI_ADDR" ]] ; then
++            minimize_window "$KODI_ADDR"
++        fi
+     else
+         echo $l not minimising or killing kodi
+   fi
+@@ -154,7 +180,7 @@
+         sleep 0.5
+     done
++    # Always wait for steam process, not just BPM window
++    # This ensures we don't exit while games are running
++    while [[ $(pidof steam) ]] ; do
++        echo $l steam process detected - looping
++        sleep 0.5
++    done
++ else
++-    while [[ $(wmctrl -lpx | grep 'steamwebhelper.*Steam Big Picture Mode') ]] ; do
++     while [[ $(pidof steam) ]] ; do
+         echo $l steam bpm windown detected - looping
+         sleep 0.5
+     done
+@@ -169,10 +195,15 @@
+     fi
+     if [[ $(pidof $KODI_BIN) ]] ; then
+         echo $l kodi running - focusing
+-        wmctrl -i -a $(wmctrl -lpx | grep '0 0.*Kodi.Kodi.*Kodi' | head -n1 | awk '{print $1}')
++        KODI_ADDR=$(get_kodi_addr)
++        if [[ -n "$KODI_ADDR" ]] ; then
++            # Restore from special workspace if minimized
++            hyprctl dispatch movetoworkspace "name:current,address:$KODI_ADDR" >/dev/null 2>&1
++            focus_window "$KODI_ADDR"
++        fi
+         if [[ $3 = 1 ]] ; then
+             echo $l fullscreening kodi
+-            wmctrl -i -r $(wmctrl -lpx | grep '0 0.*Kodi.Kodi.*Kodi' | head -n1 | awk '{print $1}') -b add,fullscreen &
++            KODI_ADDR=${KODI_ADDR:-$(get_kodi_addr)}
++            fullscreen_window "$KODI_ADDR" &
+         fi
+     else
+         if [[ $4 = true ]] ; then

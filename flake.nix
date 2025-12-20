@@ -34,8 +34,8 @@
         system = system;
         specialArgs = {
           inherit inputs;
-          fontSize = 14;
-          kernelPackages = pkgs.linuxPackages_6_15;
+          fontSize = 16;
+          kernelPackages = pkgs.linuxPackages_6_18;
           user = { name = "leroy"; fullName = "Leroy Hopson"; };
         };
         modules = [
@@ -55,6 +55,9 @@
       nixosConfigurations.scout = nixpkgs.lib.nixosSystem (commonConfig // {
         modules = commonConfig.modules ++ [ ./hosts/scout.nix ];
         specialArgs = commonConfig.specialArgs // { fontSize = 16; };
+      });
+      nixosConfigurations.medic = nixpkgs.lib.nixosSystem (commonConfig // {
+        modules = commonConfig.modules ++ [ ./hosts/medic.nix ];
       });
     };
 }

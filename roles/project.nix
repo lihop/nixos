@@ -1,8 +1,6 @@
 { pkgs, user, ... }:
 
 {
-  programs.adb.enable = true;
-
   users.users.${user.name}.extraGroups = [ "adbusers" "docker" ];
 
   environment.systemPackages = with pkgs; [
@@ -26,7 +24,7 @@
     gd
     gh
     gitlab-runner
-    gitAndTools.git-filter-repo
+    git-filter-repo
     godot_4
     godot_4-mono
     inkscape
@@ -34,7 +32,7 @@
     python3Packages.myst-parser
     python3Packages.pip
     python3Packages.sphinx
-    python3Packages.sphinx_rtd_theme
+    python3Packages.sphinx-rtd-theme
     jdk11
     jekyll
     just
@@ -47,12 +45,10 @@
     libclang.python
     libguestfs
     libimobiledevice
-    mariadb-client
+    mariadb.client
     minio
-    minio-client
     ncurses.dev
     nodejs_20
-    nodePackages.node2nix
     peek
     pkg-config
     pre-commit
@@ -74,7 +70,6 @@
     qemu
     cypress
     scons
-    travis
     xvfb-run
   ];
 

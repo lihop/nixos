@@ -4,16 +4,16 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   # Common hardware settings.
-  boot.kernelPackages = lib.mkDefault kernelPackages;
+  boot.kernelPackages = kernelPackages;
   boot.loader.timeout = lib.mkForce 1;
   boot.kernelParams = [
     "delayacct" # Required by iotop.
   ];
 
-  nix.nixPath = [
-    "nixpkgs=/etc/nixos/nixpkgs"
-    "nixos-config=/etc/nixos/configuration.nix"
-  ];
+  #nix.nixPath = [
+  #  #"nixpkgs=/etc/nixos/nixpkgs"
+  #  #"nixos-config=/etc/nixos/configuration.nix"
+  #];
 
   networking.nameservers = [
     "8.8.8.8"
@@ -44,7 +44,6 @@
 
   console = {
     keyMap = "dvorak-programmer";
-    font = "lat9w-16";
   };
 
   i18n.defaultLocale = "en_NZ.UTF-8";
@@ -53,7 +52,6 @@
     acpi
     bcachefs-tools
     binutils
-    config.boot.kernelPackages.perf
     borgbackup
     cacert
     clevis
@@ -72,6 +70,7 @@
     jq
     keyutils
     killall
+    libinput
     linuxPackages.usbip
     lm_sensors
     lsof
@@ -87,6 +86,7 @@
     p7zip
     patchelf
     pciutils
+    perf
     powertop
     pv
     pwgen
@@ -95,6 +95,7 @@
     speedtest-cli
     socat
     sysbench
+    sysstat
     tmux
     linuxPackages.turbostat
     vim

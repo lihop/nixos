@@ -1,11 +1,11 @@
 { fontSize ? 14, pkgs, user, ... }:
 let
-  xresourcesThemes = pkgs.fetchFromGitHub {
-    owner = "MicahSnell";
-    repo = "Xresources-themes";
-    rev = "0826647c65bd91cfd434eeeedd82f38933ab852e";
-    sha256 = "sha256-bP4W9C5rjOKfni4MnGl5trGbzeEtSvjMRHKisKJix8o=";
-  };
+  #xresourcesThemes = pkgs.fetchFromGitHub {
+  #  owner = "MicahSnell";
+  #  repo = "Xresources-themes";
+  #  rev = "0826647c65bd91cfd434eeeedd82f38933ab852e";
+  #  sha256 = "sha256-bP4W9C5rjOKfni4MnGl5trGbzeEtSvjMRHKisKJix8o=";
+  #};
 in
 {
   home-manager.users.${user.name} = {
@@ -26,7 +26,7 @@ in
       enable = true;
       type = "fcitx5";
       fcitx5 = {
-        addons = with pkgs; [ fcitx5-unikey ];
+        addons = with pkgs; [ qt6Packages.fcitx5-unikey ];
         settings.inputMethod = {
           GroupOrder."0" = "Default";
           "Groups/0" = {
@@ -49,30 +49,31 @@ in
         ls = "ls --color=auto";
         lock = "dm-tool lock";
       };
-      initExtra = ''
-        set -o vi
- 
-        # Choose a random terminal color scheme.
-        colorscheme=$(${findutils}/bin/find -L ${xresourcesThemes} -name '*.Xresources' | ${coreutils}/bin/shuf -n 1)
-        ${xorg.xrdb}/bin/xrdb -merge $colorscheme
-      '';
+      #initExtra = ''
+      #  set -o vi
+
+      #  # Choose a random terminal color scheme.
+      #  #colorscheme=$(${findutils}/bin/find -L ${xresourcesThemes} -name '*.Xresources' | ${coreutils}/bin/shuf -n 1)
+      #  ${xorg.xrdb}/bin/xrdb -merge $colorscheme
+      #'';
     };
 
     programs.git = {
       enable = true;
-      userName = user.fullName;
-      userEmail = "git@${user.name}.nix.nz";
-      signing = {
-        key = "CB4E7DEE";
-        signByDefault = true;
-      };
 
-      extraConfig = {
+      settings = {
         core.editor = "vim";
         diff.noprefix = false;
         http.postBuffer = 524288000;
         push.default = "simple";
         rerere.enabled = true;
+        user.name = user.fullName;
+        user.email = "git@${user.name}.nix.nz";
+      };
+
+      signing = {
+        key = "CB4E7DEE";
+        signByDefault = true;
       };
     };
 
@@ -91,6 +92,7 @@ in
     services.dunst.enable = false;
 
     xresources.properties = {
+      "Xft.dpi" = 163;
       "URxvt.dynamicColors" = true;
       "URxvt.scrollBar" = false;
       "URxvt.saveLines" = 8192;

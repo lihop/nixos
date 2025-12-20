@@ -4,6 +4,17 @@
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
+    # Add Proton GE for better game compatibility
+    extraCompatPackages = with pkgs; [ proton-ge-bin ];
+    # Use NVIDIA GPU for all Steam games via PRIME offload
+    package = pkgs.steam.override {
+      extraEnv = {
+        __NV_PRIME_RENDER_OFFLOAD = "1";
+        __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        __VK_LAYER_NV_optimus = "NVIDIA_only";
+      };
+    };
   };
 
   # Support for droidcam.
@@ -17,7 +28,6 @@
 
   environment.systemPackages = with pkgs; [
     audacity
-    audio-recorder
     appimage-run
     bridge-utils
     calibre
@@ -28,6 +38,7 @@
     gcc
     gimp
     gnuradio
+    golden-cheetah
     gqrx
     hfsprogs
     jp2a
@@ -43,7 +54,6 @@
     transmission_4
     wabt
     weechat
-    xscreensaver
 
     # Latex.
     (texlive.combine {

@@ -11,12 +11,12 @@
     cowsay
     figlet
     fortune
-    greed
+    #greed
     hollywood
     lolcat
     ninvaders
     mc
-    moon-buggy
+    #moon-buggy
     nyancat
     ponysay
     sl
