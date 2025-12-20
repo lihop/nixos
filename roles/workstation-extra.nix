@@ -19,9 +19,6 @@
     audacity
     audio-recorder
     appimage-run
-    (blender.override {
-      cudaSupport = true;
-    })
     bridge-utils
     calibre
     chromium

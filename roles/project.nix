@@ -28,6 +28,7 @@
     gitlab-runner
     gitAndTools.git-filter-repo
     godot_4
+    godot_4-mono
     inkscape
     python3Packages.grip
     python3Packages.myst-parser

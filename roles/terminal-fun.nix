@@ -15,6 +15,7 @@
     hollywood
     lolcat
     ninvaders
+    mc
     moon-buggy
     nyancat
     ponysay
